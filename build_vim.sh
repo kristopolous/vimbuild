@@ -24,6 +24,19 @@ die () {
   exit 3
 }
 
+info() {
+  echo "$1"
+}
+
+newtemp(){
+  # RHEL doesn't have tempfile
+  if ( silentfind tempfile ); then
+    tempfile=`tempfile`
+  else
+    tempfile=/tmp/$RANDOM-`date +"%s"`
+  fi
+}
+
 savepwd () {
   $ARRAY build_pwd $pwd_level `pwd`
   cd $1
@@ -88,6 +101,21 @@ findpkg () {
   fi
 }
 
+installpkg() {
+  test=$1
+  package=$2
+  if ( ! silentfind $test ); then
+    $PKGMANAGER install $package > /dev/null 
+
+    if [ $? -ne 0 ]; then
+      die "Can't install $package"
+    else
+      return 0
+    fi
+  fi
+  return 0
+}
+
 _00_Setup () {
   PKGMANAGER=0
 
@@ -99,9 +127,8 @@ _00_Setup () {
     die "Couldn't find a package manager"
   fi
 
-  if ( ! silentfind cc ); then
-    $PKGMANAGER install build-essential > /dev/null || die "Can't install gcc"
-  fi
+  installpkg cc build-essential
+  installpkg ri ri
 
   if ( ! findpkg libncurses-dev ); then
     $PKGMANAGER install libncurses-dev > /dev/null || die "Can't install ncurses"
@@ -141,9 +168,6 @@ _01_Clean () {
 
 _02_Download () {
   downloadit vim-$VIM_VERSION.tar.bz2 ftp://ftp.vim.org/pub/vim/unix
-
-#  getit .vimrc
-#  getit dot_vim.tgz
 }
 
 _03_Extract () {
@@ -192,10 +216,16 @@ _05_Install () {
   tar xzf vimgdb/vimgdb_runtime.tgz -C ~/.vim
   restorepwd
 
-  savepwd ~
-  tar xzf dot_vim.tgz
-  rm dot_vim.tgz
-  restorepwd
+  newtemp
+  info "Backing up .vim to $tempfile"
+  cp -r ~/.vim $tempfile
+
+  newtemp
+  info "Backing up .vimrc to $tempfile"
+  cp ~/.vimrc $tempfile
+
+  cp -r config/dotvim ~/.vim
+  cp config/vimrc ~/.vimrc
 }
 
 _00_Setup
