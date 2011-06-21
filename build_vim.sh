@@ -13,11 +13,9 @@ ARRAY=$BINDIR/array
 # avoid the builtin shell which
 WHICH=/usr/bin/which
 
-if [ `uname -s` = "Linux" ]; then
-  CPUS="-j"`cat /proc/cpuinfo | grep proce | wc -l`
-fi
 
 pwd_level=0
+pwd_start=`pwd`
 
 die () {
   echo $1
@@ -35,6 +33,8 @@ newtemp(){
   else
     tempfile=/tmp/$RANDOM-`date +"%s"`
   fi
+
+  rm $tempfile
 }
 
 savepwd () {
@@ -51,7 +51,7 @@ restorepwd () {
 buildit () {
   savepwd $STARTDIR/$1
 
-  ./configure\
+  CFLAGS='-O3' ./configure\
     --bindir=$BINDIR\
     --sbindir=$BINDIR\
     --libexecdir=$LIBDIR\
@@ -81,6 +81,16 @@ downloadit () {
       wget ftp://ftp.netbsd.org/pub/pkgsrc/distfiles/$1
     fi
   fi
+  cp $1 $STARTDIR
+  cd $STARTDIR
+  extension=${1##*.}
+
+  [ $extension = "bz2" ] && flags=xjf
+  [ $extension = "tbz" ] && flags=xjf
+  [ $extension = "gz" ] && flags=xzf
+  [ $extension = "tgz" ] && flags=xzf
+
+  tar $flags $1
 
   restorepwd
 }
@@ -116,8 +126,22 @@ installpkg() {
   return 0
 }
 
-_00_Setup () {
+silentfind () {
+  res=`$WHICH $1 2>> $log | wc -c`
+
+  if [ $res -gt 0 ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+Setup () {
   PKGMANAGER=0
+
+  if [ `uname -s` = "Linux" ]; then
+    CPUS="-j"`cat /proc/cpuinfo | grep proce | wc -l`
+  fi
 
   if ( silentfind apt-get ); then
     PKGMANAGER="sudo apt-get"
@@ -135,7 +159,7 @@ _00_Setup () {
   fi
 }
 
-_01_Clean () {
+Clean () {
   [ -d $BINDIR ] || mkdir -p $BINDIR
   [ -d $LIBDIR ] || mkdir -p $LIBDIR
 
@@ -166,33 +190,13 @@ _01_Clean () {
   cd $STARTDIR
 }
 
-_02_Download () {
+
+
+Download () {
   downloadit vim-$VIM_VERSION.tar.bz2 ftp://ftp.vim.org/pub/vim/unix
 }
 
-_03_Extract () {
-  savepwd $DOWNLOADDIR
-
-  cp * $STARTDIR
-  cd $STARTDIR
-
-  ls *.bz2 | xargs -L 1 tar xjf 
-  ls *.gz | xargs -L 1 tar xzf 
-
-  restorepwd
-}
-
-silentfind () {
-  res=`$WHICH $1 2>> $log | wc -c`
-
-  if [ $res -gt 0 ]; then
-    return 0
-  else
-    return 1
-  fi
-}
-
-_04_Build () {
+Build () {
   savepwd $STARTDIR
 
   if ( ! silentfind ctags ); then
@@ -211,10 +215,8 @@ _04_Build () {
   restorepwd
 }
 
-_05_Install () {
-  savepwd $STARTDIR
-  tar xzf vimgdb/vimgdb_runtime.tgz -C ~/.vim
-  restorepwd
+Install () {
+  cd $pwd_start
 
   newtemp
   info "Backing up .vim to $tempfile"
@@ -228,9 +230,8 @@ _05_Install () {
   cp config/vimrc ~/.vimrc
 }
 
-_00_Setup
-_01_Clean
-_02_Download
-_03_Extract
-_04_Build
-_05_Install
+Setup
+Clean
+Download
+Build
+Install
