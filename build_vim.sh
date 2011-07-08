@@ -209,7 +209,7 @@ Build () {
     buildit cscope-$CSCOPE_VERSION cscope
   fi
 
-  configOpts="--enable-rubyinterp --with-x --enable-cscope"
+  configOpts="--enable-pythoninterp --enable-rubyinterp --with-x --enable-cscope"
   buildit vim73 vim
 
   restorepwd
