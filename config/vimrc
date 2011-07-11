@@ -178,6 +178,7 @@ nnoremap <F12> :tabn<cr>
 nnoremap <F11> :tabp<cr>
 nnoremap q :q<cr>
 
+nnoremap <silent> <C-T> :ConqueTerm zsh<CR>
 nnoremap <C-Left> <C-W>h
 nnoremap <C-Right> <C-W>l
 nnoremap <C-Up> <C-W>k
@@ -220,10 +221,10 @@ function FoldBrace()
 endfunction
 
 function AckExpand(term)
-	execute 'Ack' expand('<cWORD>')
+	execute 'Ack' expand('<cword>')
 endfunction
 
-noremap <F4> :call AckExpand(expand('<cWORD>'))<cr>
+noremap <F4> :call AckExpand(expand('<cword>'))<cr>
 set foldexpr=FoldBrace()
 set foldmethod=expr
 set visualbell t_vb=
