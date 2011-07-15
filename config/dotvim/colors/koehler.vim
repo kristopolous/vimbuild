@@ -22,8 +22,8 @@ hi MoreMsg		  term=bold  cterm=bold  ctermfg=darkgreen	gui=bold  guifg=SeaGreen
 hi ModeMsg		  term=bold  cterm=bold  gui=bold  guifg=White	guibg=Blue
 hi LineNr		  term=underline  cterm=bold  ctermfg=darkcyan	guifg=Yellow
 hi Question		  term=standout  cterm=bold  ctermfg=darkgreen	gui=bold  guifg=Green
-hi StatusLine	  term=undercurl,reverse  cterm=undercurl ctermfg=darkblue ctermbg=black
-hi StatusLineNC   term=bold,underline,reverse  cterm=underline ctermfg=darkgrey ctermbg=black guifg=white guibg=blue
+hi StatusLine	  term=undercurl,reverse  cterm=undercurl ctermfg=grey ctermbg=black
+hi StatusLineNC   term=bold,underline,reverse  cterm=underline ctermfg=darkblue ctermbg=black guifg=white guibg=blue
 hi VertSplit	  term=underline,reverse  cterm=bold ctermfg=darkcyan ctermbg=black
 hi Title		  term=bold  cterm=bold  ctermfg=darkmagenta  gui=bold	guifg=Magenta
 hi Visual		  term=reverse	cterm=reverse  gui=reverse
