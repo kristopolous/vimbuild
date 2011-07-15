@@ -220,7 +220,7 @@ Install () {
 
   newtemp
   info "Backing up .vim to $tempfile"
-  cp -r ~/.vim $tempfile
+  mv ~/.vim $tempfile
 
   newtemp
   info "Backing up .vimrc to $tempfile"
