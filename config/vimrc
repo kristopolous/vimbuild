@@ -1,15 +1,25 @@
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2002 Sep 19
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
+function FoldBrace()
+	if getline(v:lnum+1)[0] == '{'
+		return '>1'
+	endif
+	if getline(v:lnum)[0] == '}'
+		return '<1'
+	endif
+	return foldlevel(v:lnum-1)
+endfunction
 
-" When started as "evim", evim.vim will already have done these settings.
+function AckExpand(term)
+	execute 'Ack' expand('<cword>')
+endfunction
+
+function! Mosh_Tab_Or_Complete()
+	if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[:.\>]'
+		return "\<C-X>\<C-O>"
+	else
+		return "\<Tab>"
+endfunction
+
+
 if v:progname =~? "evim"
   finish
 endif
@@ -21,19 +31,11 @@ set showmatch
 set nu
 set nocp
 set cmdheight=2
+
 filetype plugin on
 let g:netrw_browse_split=3
 
 set tags+=~/.vim/systags
-
-function! Mosh_Tab_Or_Complete()
-	if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[:.\>]'
-		return "\<C-X>\<C-O>"
-	else
-		return "\<Tab>"
-endfunction
-
-""""""""""""" Standard cscope/vim boilerplate
 
 " use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
 set cscopetag
@@ -53,6 +55,27 @@ endif
 
 " show msg when any other cscope db added
 set cscopeverbose  
+
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set foldexpr=FoldBrace()
+set foldmethod=expr
+set visualbell t_vb=
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+set backup		" keep a backup file
+set history=50		" keep 50 lines of command line history
+set ruler		" show the cursor position all the time
+set showcmd		" display incomplete commands
+set incsearch		" do incremental searching
+set fdc=1
+set foldlevel=10
+set ttymouse=xterm2
+set mouse=n
+set scrolloff=2
+set scrolljump=1
+
 
 
 """"""""""""" My cscope/vim key mappings
@@ -166,11 +189,8 @@ nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
 "
 "set ttimeoutlen=100
 
-:set tabstop=2
-:set shiftwidth=2
-:set expandtab
 
-:inoremap <Tab> <C-R>=Mosh_Tab_Or_Complete()<CR>
+inoremap <Tab> <C-R>=Mosh_Tab_Or_Complete()<CR>
 
 map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
@@ -187,68 +207,31 @@ nnoremap <M-Down> <C-W>+
 nnoremap <M-Up> <C-W>-
 nnoremap <M-Left> <C-W><
 nnoremap <M-Right> <C-W>>
-:nmap <C-b> :tabnew <C-d>
-:imap <C-b> <ESC>:tabnew <C-d>
-
-:nmap <C-J> :cn <cr>
-:imap <C-J> <ESC>:cn <cr>
-
-:nmap <C-K> :cp <cr>
-:imap <C-K> <ESC>:cp <cr>
-
-:nmap <F6> :w<cr>:make 
-:map <F6> :w<cr>:make 
-:imap <F6> <ESC>:w<cr>make 
-
-:nnoremap <silent> <F4> :cn<cr>
-
-:nmap , zc
-:map , zc
-
-:nmap . zO
-:map . zO
-
-:nnoremap <silent> <F8> :NERDTreeToggle<CR><C-w>h<C-w><C-w>h<C-w>h
-:nnoremap <silent> <F7> :TlistToggle<CR><C-w>h<C-w><C-w>h<C-w>h
-function FoldBrace()
-	if getline(v:lnum+1)[0] == '{'
-		return '>1'
-	endif
-	if getline(v:lnum)[0] == '}'
-		return '<1'
-	endif
-	return foldlevel(v:lnum-1)
-endfunction
-
-function AckExpand(term)
-	execute 'Ack' expand('<cword>')
-endfunction
-
 noremap <F4> :call AckExpand(expand('<cword>'))<cr>
-set foldexpr=FoldBrace()
-set foldmethod=expr
-set visualbell t_vb=
+nmap <C-b> :tabnew <C-d>
+imap <C-b> <ESC>:tabnew <C-d>
 
-:set fdc=1
-:set foldlevel=10
+nmap <C-J> :cn <cr>
+imap <C-J> <ESC>:cn <cr>
 
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+nmap <C-K> :cp <cr>
+imap <C-K> <ESC>:cp <cr>
 
-filetype on
+nmap <F6> :w<cr>:make 
+map <F6> :w<cr>:make 
+imap <F6> <ESC>:w<cr>make 
 
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  set backup		" keep a backup file
-endif
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
+nnoremap <silent> <F4> :cn<cr>
 
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
+nmap , zc
+map , zc
+
+nmap . zO
+map . zO
+
+nnoremap <silent> <F8> :NERDTreeToggle<CR><C-w>h<C-w><C-w>h<C-w>h
+nnoremap <silent> <F7> :TlistToggle<CR><C-w>h<C-w><C-w>h<C-w>h
+
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -296,26 +279,21 @@ else
 
 endif " has("autocmd")
 
-:colorscheme koehler
+colorscheme koehler
 
-:set ttymouse=xterm2
-:set mouse=n
-:set scrolloff=2
-:set scrolljump=1
+map <RightMouse> :set scrolloff=20<cr>
+map <RightDrag> <LeftMouse>
+map <RightRelease> :set scrolloff=1<cr>
 
-:map <RightMouse> :set scrolloff=20<cr>
-:map <RightDrag> <LeftMouse>
-:map <RightRelease> :set scrolloff=1<cr>
+map <MouseDown> <C-Y>
+map <S-MouseDown> <C-U>
+map <MouseUp> <C-E>
+map <S-MouseUp> <C-D>
 
-:map <MouseDown> <C-Y>
-:map <S-MouseDown> <C-U>
-:map <MouseUp> <C-E>
-:map <S-MouseUp> <C-D>
-
-:map <Home> <C-W><C-K>
-:map <End> <C-W><C-J>
-:map <S-Home> <C-W><C-L>
-:map <S-End> <C-H><C-H>
+map <Home> <C-W><C-K>
+map <End> <C-W><C-J>
+map <S-Home> <C-W><C-L>
+map <S-End> <C-H><C-H>
 
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
