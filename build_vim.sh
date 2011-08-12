@@ -8,13 +8,10 @@ BINDIR=~/bin
 LIBDIR=~/lib
 STARTDIR=`pwd`/temp
 DOWNLOADDIR=$STARTDIR/_distfiles_
-ARRAY=$BINDIR/array
 
 # avoid the builtin shell which
 WHICH=/usr/bin/which
 
-
-pwd_level=0
 pwd_start=`pwd`
 
 die () {
@@ -37,62 +34,52 @@ newtemp(){
   rm $tempfile
 }
 
-savepwd () {
-  $ARRAY build_pwd $pwd_level `pwd`
-  cd $1
-  pwd_level=$((pwd_level + 1))
-}
-
-restorepwd () {
-  pwd_level=$((pwd_level - 1))
-  cd `$ARRAY build_pwd $pwd_level`
-}
-
 buildit () {
-  savepwd $STARTDIR/$1
+  (
+    cd $STARTDIR/$1
 
-  CFLAGS='-O3' ./configure\
-    --bindir=$BINDIR\
-    --sbindir=$BINDIR\
-    --libexecdir=$LIBDIR\
-    --datadir=$LIBDIR\
-    --sysconfdir=$LIBDIR\
-    --sharedstatedir=$LIBDIR\
-    --localstatedir=$LIBDIR\
-    --libdir=$LIBDIR\
-    --infodir=/tmp\
-    --mandir=/tmp\
-    $configOpts
+    CFLAGS='-O3' ./configure\
+      --bindir=$BINDIR\
+      --sbindir=$BINDIR\
+      --libexecdir=$LIBDIR\
+      --datadir=$LIBDIR\
+      --sysconfdir=$LIBDIR\
+      --sharedstatedir=$LIBDIR\
+      --localstatedir=$LIBDIR\
+      --libdir=$LIBDIR\
+      --infodir=/tmp\
+      --mandir=/tmp\
+      $configOpts
 
-  make $CPUS
-  replace $2
-  make install
-
-  restorepwd
+    make $CPUS
+    replace $2
+    make install
+  )
 }
 
 downloadit () {
-  savepwd $DOWNLOADDIR
+  (
+    cd $DOWNLOADDIR
 
-  if [ ! -e $1 ]; then
-    if [ $# -gt "1" ]; then
-      wget $2/$1
-    else
-      wget ftp://ftp.netbsd.org/pub/pkgsrc/distfiles/$1
+    if [ ! -e $1 ]; then
+      if [ $# -gt "1" ]; then
+        wget $2/$1
+      else
+        wget ftp://ftp.netbsd.org/pub/pkgsrc/distfiles/$1
+      fi
     fi
-  fi
-  cp $1 $STARTDIR
-  cd $STARTDIR
-  extension=${1##*.}
+    cp $1 $STARTDIR
+    cd $STARTDIR
+    extension=${1##*.}
 
-  [ $extension = "bz2" ] && flags=xjf
-  [ $extension = "tbz" ] && flags=xjf
-  [ $extension = "gz" ] && flags=xzf
-  [ $extension = "tgz" ] && flags=xzf
+    [ $extension = "bz2" ] && flags=xjf
+    [ $extension = "tbz" ] && flags=xjf
+    [ $extension = "gz" ] && flags=xzf
+    [ $extension = "tgz" ] && flags=xzf
 
-  tar $flags $1
+    tar $flags $1
 
-  restorepwd
+  )
 }
 
 replaceit () {
@@ -173,19 +160,6 @@ Clean () {
   [ -d $DOWNLOADDIR ] || mkdir $DOWNLOADDIR
 
 
-  if [ ! -e $ARRAY ]; then
-    cd $DOWNLOADDIR
-    file=array-latest.tbz
-    if [ ! -e $file ]; then
-      wget https://github.com/downloads/kristopolous/array/$file || die "Couldn't get array-latest.tbz, sorry"
-    fi
-    cp $file $STARTDIR
-    cd $STARTDIR
-    tar xjf $file
-    cd array
-    make array
-    cp array $BINDIR
-  fi
 
   cd $STARTDIR
 }
@@ -197,22 +171,22 @@ Download () {
 }
 
 Build () {
-  savepwd $STARTDIR
+  (
+    cd $STARTDIR
 
-  if ( ! silentfind ctags ); then
-    downloadit ctags-$CTAGS_VERSION.tar.gz
-    buildit ctags-$CTAGS_VERSION ctags
-  fi
+    if ( ! silentfind ctags ); then
+      downloadit ctags-$CTAGS_VERSION.tar.gz
+      buildit ctags-$CTAGS_VERSION ctags
+    fi
 
-  if ( ! silentfind cscope ); then
-    downloadit cscope-$CSCOPE_VERSION.tar.bz2
-    buildit cscope-$CSCOPE_VERSION cscope
-  fi
+    if ( ! silentfind cscope ); then
+      downloadit cscope-$CSCOPE_VERSION.tar.bz2
+      buildit cscope-$CSCOPE_VERSION cscope
+    fi
 
-  configOpts="--enable-pythoninterp --enable-rubyinterp --with-x --enable-cscope"
-  buildit vim73 vim
-
-  restorepwd
+    configOpts="--enable-pythoninterp --enable-rubyinterp --with-x --enable-cscope"
+    buildit vim73 vim
+  )
 }
 
 Install () {
