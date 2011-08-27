@@ -1,2 +1,2 @@
 install:
-	./build_vim.sh
+	@./build_vim.sh

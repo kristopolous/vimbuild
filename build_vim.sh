@@ -131,14 +131,16 @@ Setup () {
   fi
 
   if ( silentfind apt-get ); then
-    PKGMANAGER="sudo apt-get"
+    PKGMANAGER="sudo apt-get -y"
   elif ( silentfind yum ); then
     PKGMANAGER="sudo yum"
   else
     die "Couldn't find a package manager"
   fi
 
+  info "installing build-essential"
   installpkg cc build-essential
+  info "installing ri"
   installpkg ri ri
 
   if ( ! findpkg libncurses-dev ); then
