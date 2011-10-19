@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 log=/dev/stderr
 VIM_VERSION=7.3
@@ -130,21 +130,28 @@ Setup () {
     CPUS="-j"`cat /proc/cpuinfo | grep proce | wc -l`
   fi
 
-  if ( silentfind apt-get ); then
+  if silentfind apt-get; then
     PKGMANAGER="sudo apt-get -y"
-  elif ( silentfind yum ); then
+  elif silentfind yum; then
     PKGMANAGER="sudo yum"
   else
     die "Couldn't find a package manager"
   fi
 
-  info "installing build-essential"
-  installpkg cc build-essential
-  info "installing ri"
-  installpkg ri ri
+  if ! findpkg build-esssential; then
+    info "installing build-essential"
+    installpkg cc build-essential
+  fi
 
-  if ( ! findpkg libncurses-dev ); then
-    $PKGMANAGER install libncurses-dev > /dev/null || die "Can't install ncurses"
+  if ! findpkg ri; then
+    info "installing ri"
+    installpkg ri ri
+  fi
+
+  ncurses=`$PKGMANAGER search libncurses | grep dev | head -1 | awk ' { print $1 } '`
+
+  if ! findpkg $ncurses; then
+    $PKGMANAGER install $ncurses > /dev/null || die "Can't install ncurses"
   fi
 }
 
@@ -161,12 +168,8 @@ Clean () {
 
   [ -d $DOWNLOADDIR ] || mkdir $DOWNLOADDIR
 
-
-
   cd $STARTDIR
 }
-
-
 
 Download () {
   downloadit vim-$VIM_VERSION.tar.bz2 ftp://ftp.vim.org/pub/vim/unix
@@ -194,13 +197,17 @@ Build () {
 Install () {
   cd $pwd_start
 
-  newtemp
-  info "Backing up .vim to $tempfile"
-  mv ~/.vim $tempfile
+  if [ -e ~/.vim ]; then
+    newtemp
+    info "Backing up .vim to $tempfile"
+    mv ~/.vim $tempfile
+  fi
 
-  newtemp
-  info "Backing up .vimrc to $tempfile"
-  cp ~/.vimrc $tempfile
+  if [ -e ~/.vimrc ]; then
+    newtemp
+    info "Backing up .vimrc to $tempfile"
+    cp ~/.vimrc $tempfile
+  fi
 
   cp -r config/dotvim ~/.vim
   cp config/vimrc ~/.vimrc
