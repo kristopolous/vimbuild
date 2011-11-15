@@ -52,7 +52,7 @@ buildit () {
       $configOpts
 
     make $CPUS
-    replace $2
+    replaceit $2
     make install
   )
 }
