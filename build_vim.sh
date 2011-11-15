@@ -125,6 +125,7 @@ silentfind () {
 
 Setup () {
   PKGMANAGER=0
+  PKGSEARCH=0
 
   if [ `uname -s` = "Linux" ]; then
     CPUS="-j"`cat /proc/cpuinfo | grep proce | wc -l`
@@ -132,8 +133,10 @@ Setup () {
 
   if silentfind apt-get; then
     PKGMANAGER="sudo apt-get -y"
+    PKGSEARCH="sudo apt-cache search"
   elif silentfind yum; then
     PKGMANAGER="sudo yum"
+    PKGSEARCH="sudo yum search"
   else
     die "Couldn't find a package manager"
   fi
@@ -148,7 +151,7 @@ Setup () {
     installpkg ri ri
   fi
 
-  ncurses=`$PKGMANAGER search libncurses | grep dev | head -1 | awk ' { print $1 } '`
+  ncurses=`$PKGSEARCH libncurses | grep dev | head -1 | awk ' { print $1 } '`
 
   if ! findpkg $ncurses; then
     $PKGMANAGER install $ncurses > /dev/null || die "Can't install ncurses"
