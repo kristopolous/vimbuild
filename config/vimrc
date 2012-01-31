@@ -8,9 +8,9 @@ function FoldBrace()
 	return foldlevel(v:lnum-1)
 endfunction
 
-function AckExpand(term)
-	execute 'Ack' expand('<cword>')
-endfunction
+" function AckExpand(term)
+"	execute 'Ack' expand('<cword>')
+"endfunction
 
 function! Mosh_Tab_Or_Complete()
 	if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[:.\>]'
@@ -137,6 +137,7 @@ nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>	
 nmap <C-@>g :scs find g <C-R>=expand("<cword>")<CR><CR>	
+nmap <F3> :scs find g <C-R>=expand("<cword>")<CR><CR>	
 nmap <C-@>c :scs find c <C-R>=expand("<cword>")<CR><CR>	
 nmap <C-@>t :scs find t <C-R>=expand("<cword>")<CR><CR>	
 nmap <C-@>e :scs find e <C-R>=expand("<cword>")<CR><CR>	
@@ -197,8 +198,9 @@ map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 nnoremap <F12> :tabn<cr>
 nnoremap <F11> :tabp<cr>
 nnoremap q :q<cr>
+nnoremap w :w<cr>
 
-nnoremap <silent> <C-T> :ConqueTerm zsh<CR>
+" nnoremap <silent> <C-T> :ConqueTerm zsh<CR>
 nnoremap <C-Left> <C-W>h
 nnoremap <C-Right> <C-W>l
 nnoremap <C-Up> <C-W>k
@@ -207,7 +209,7 @@ nnoremap <M-Down> <C-W>+
 nnoremap <M-Up> <C-W>-
 nnoremap <M-Left> <C-W><
 nnoremap <M-Right> <C-W>>
-noremap <F4> :call AckExpand(expand('<cword>'))<cr>
+" noremap <F4> :call AckExpand(expand('<cword>'))<cr>
 nmap <C-b> :tabnew <C-d>
 imap <C-b> <ESC>:tabnew <C-d>
 
