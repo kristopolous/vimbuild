@@ -273,20 +273,20 @@ endif
 
 " Expand class/module if possible and prompt
 nnoremap <unique> <Plug>Rx :call Ri('', 1)<CR>
-" if !hasmapto('<Plug>Rx')
+if !hasmapto('<Plug>Rx')
   nmap <unique> <Leader>rx <Plug>Rx
-" endif
+endif
 
-" if !hasmapto('<M-I>')
+if !hasmapto('<M-I>')
   noremap <M-I> :call Ri('', 1)<CR>
-" endif
+endif
 
 " Tag-like greedy invoking
-" if !hasmapto('<M-]>')
-"  noremap <F3> :call Ri(expand('<cWORD>'), 0)<cr>
-" endif
+if !hasmapto('<M-]>')
+  noremap <M-]> :call Ri(expand('<cWORD>'), 0)<cr>
+endif
 
 " Not so greedy invoking.
-" if !hasmapto('<M-[>')
+if !hasmapto('<M-[>')
   noremap <M-[> :call Ri(expand('<cword>'), 1)<cr>
-" endif
+endif
