@@ -7,3 +7,4 @@ cp ~/.vimrc config/vimrc
 cp -r ~/.vim config/
 rm -fr config/dotvim
 mv config/.vim config/dotvim
+rm config/dotvim/.netrwhist

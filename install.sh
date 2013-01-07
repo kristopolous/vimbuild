@@ -216,8 +216,8 @@ Install () {
   cp config/vimrc ~/.vimrc
 }
 
-Setup
-Clean
+#Setup
+#Clean
 Download
 Build
 Install
