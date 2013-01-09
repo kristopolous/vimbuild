@@ -11,8 +11,8 @@ if exists("syntax_on")
 endif
 let g:colors_name = "koehler"
 highlight DiffAdd term=reverse cterm=bold ctermbg=black ctermfg=white        
-highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=white
-highlight DiffText term=reverse cterm=bold ctermbg=darkcyan ctermfg=white
+highlight DiffChange term=reverse ctermbg=cyan ctermfg=white
+highlight DiffText term=underline cterm=bold,underline ctermbg=darkcyan ctermfg=white
 highlight DiffDelete term=reverse cterm=bold ctermbg=darkcyan ctermfg=white
 hi Normal		  guifg=white  guibg=black
 hi Scrollbar	  guifg=darkcyan guibg=cyan
