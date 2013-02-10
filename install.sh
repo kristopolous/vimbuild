@@ -1,8 +1,18 @@
 #!/bin/bash
+#
+# vimbuild
+# 
+#  A bash script that builds a custom version of vim and installs
+#  a variety of plugins.
+#
+#  This is an unversioned, often-changing array of stuff.
+#
+#  You can find the latest here: https://github.com/kristopolous/vimbuild
+#
 
 log=/dev/stderr
 VIM_VERSION=7.3
-CSCOPE_VERSION=15.7a
+CSCOPE_VERSION=15.8a
 CTAGS_VERSION=5.8
 BINDIR=~/bin
 LIBDIR=~/lib
@@ -13,6 +23,16 @@ DOWNLOADDIR=$STARTDIR/_distfiles_
 WHICH=/usr/bin/which
 
 pwd_start=`pwd`
+
+_mkdir () {
+  while [ $# -gt 0 ]; do
+    if [ ! -d "$1" ]; then 
+      [ -e "$1" ] && rm -f "$1"
+      mkdir -p "$1"
+    fi
+    shift
+  done
+}
 
 die () {
   echo $1
@@ -141,7 +161,7 @@ Setup () {
     die "Couldn't find a package manager"
   fi
 
-  if ! findpkg build-esssential; then
+  if ! findpkg build-essential; then
     info "installing build-essential"
     installpkg cc build-essential
   fi
@@ -159,17 +179,13 @@ Setup () {
 }
 
 Clean () {
-  [ -d $BINDIR ] || mkdir -p $BINDIR
-  [ -d $LIBDIR ] || mkdir -p $LIBDIR
+  _mkdir $BINDIR $LIBDIR
 
   if [ -d $STARTDIR ]; then
     cd $STARTDIR
     rm -fr [A-Z0-9a-z]*
-  else
-    mkdir $STARTDIR
   fi
-
-  [ -d $DOWNLOADDIR ] || mkdir $DOWNLOADDIR
+  _mkdir $STARTDIR $DOWNLOADDIR
 
   cd $STARTDIR
 }
@@ -216,8 +232,16 @@ Install () {
   cp config/vimrc ~/.vimrc
 }
 
-#Setup
-#Clean
+Finish () {
+  echo "Finished! Remember:"
+  echo
+  echo "  ** Add $BINDIR to your path. **"
+  echo
+}
+
+Setup
+Clean
 Download
 Build
 Install
+Finish
