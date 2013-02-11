@@ -204,7 +204,7 @@ Build () {
     fi
 
     if ( ! silentfind cscope ); then
-      downloadit cscope-$CSCOPE_VERSION.tar.bz2
+      downloadit cscope-$CSCOPE_VERSION.tar.gz
       buildit cscope-$CSCOPE_VERSION cscope
     fi
 
