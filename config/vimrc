@@ -12,6 +12,7 @@ endfunction
 "	execute 'Ack' expand('<cword>')
 "endfunction
 
+" Try to get sensible omni complete that shows up when you want it to.
 function! Mosh_Tab_Or_Complete()
 	if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[:.\>]'
 		return "\<C-X>\<C-O>"
@@ -19,21 +20,20 @@ function! Mosh_Tab_Or_Complete()
 		return "\<Tab>"
 endfunction
 
-
 if v:progname =~? "evim"
   finish
 endif
 
-" Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 set showmatch
 set nu
 set nocp
+
+" For remote editing...
 set cmdheight=2
 
 filetype plugin on
-let g:netrw_browse_split=3
 
 set tags+=~/.vim/systags
 
@@ -46,37 +46,49 @@ set csto=0
 
 " add any cscope database in current directory
 if filereadable("cscope.out")
-cs add cscope.out  
-" else add the database pointed to by environment variable 
+  cs add cscope.out  
+  " else add the database pointed to by environment variable 
 elseif $CSCOPE_DB != ""
-cs add $CSCOPE_DB
+  cs add $CSCOPE_DB
 endif
-
 
 " show msg when any other cscope db added
 set cscopeverbose  
 
+" Try to be aggressively 2 spaces.
 set tabstop=2
 set shiftwidth=2
 set expandtab
 set foldexpr=FoldBrace()
 set foldmethod=expr
+
+" No screen flash, no beep, no nothing.
 set visualbell t_vb=
+
+set backup		" keep a backup file
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-set backup		" keep a backup file
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
 set fdc=1
 set foldlevel=10
+
+" mouse level things ... 
+" try to use the scroll wheel and mouse focus magically
+" only when it makes sense.  This is a hard thing to get right.
 set ttymouse=xterm2
 set mouse=n
 set scrolloff=2
 set scrolljump=1
+set t_Co=256
+syntax on
+set hlsearch
 
-
+" For remote editing (ssh://..) set a default view
+let g:netrw_browse_split=3
 
 """"""""""""" My cscope/vim key mappings
 "
@@ -162,45 +174,20 @@ nmap <C-@><C-@>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
 
 
-""""""""""""" key map timeouts
-"
-" By default Vim will only wait 1 second for each keystroke in a mapping.
-" You may find that too short with the above typemaps.  If so, you should
-" either turn off mapping timeouts via 'notimeout'.
-"
-"set notimeout 
-"
-" Or, you can keep timeouts, by uncommenting the timeoutlen line below,
-" with your own personal favorite value (in milliseconds):
-"
-"set timeoutlen=4000
-"
-" Either way, since mapping timeout settings by default also set the
-" timeouts for multicharacter 'keys codes' (like <F1>), you should also
-" set ttimeout and ttimeoutlen: otherwise, you will experience strange
-" delays as vim waits for a keystroke after you hit ESC (it will be
-" waiting to see if the ESC is actually part of a key code like <F1>).
-"
-"set ttimeout 
-"
-" personally, I find a tenth of a second to work well for key code
-" timeouts. If you experience problems and have a slow terminal or network
-" connection, set it higher.  If you don't set ttimeoutlen, the value for
-" timeoutlent (default: 1000 = 1 second, which is sluggish) is used.
-"
-"set ttimeoutlen=100
-
-
 inoremap <Tab> <C-R>=Mosh_Tab_Or_Complete()<CR>
-
 map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
+" Pan through tabs with F11 and F12
 nnoremap <F12> :tabn<cr>
 nnoremap <F11> :tabp<cr>
+
+" Short-wire writing and closing of buffers
 nnoremap q :q<cr>
 nnoremap w :w<cr>
 
 " nnoremap <silent> <C-T> :ConqueTerm zsh<CR>
+
+" Have some jump keys for going around panes
 nnoremap <C-Left> <C-W>h
 nnoremap <C-Right> <C-W>l
 nnoremap <C-Up> <C-W>k
@@ -219,12 +206,14 @@ imap <C-J> <ESC>:cn <cr>
 nmap <C-K> :cp <cr>
 imap <C-K> <ESC>:cp <cr>
 
+" Map some f keys for makefile style development
 nmap <F6> :w<cr>:make 
 map <F6> :w<cr>:make 
 imap <F6> <ESC>:w<cr>make 
 
 nnoremap <silent> <F4> :cn<cr>
 
+" make comma and dot expand and collapse folds
 nmap , zc
 map , zc
 
@@ -234,6 +223,20 @@ map . zO
 nnoremap <silent> <F8> :NERDTreeToggle<CR><C-w>h<C-w><C-w>h<C-w>h
 nnoremap <silent> <F7> :TlistToggle<CR><C-w>h<C-w><C-w>h<C-w>h
 
+map <RightMouse> :set scrolloff=20<cr>
+map <RightDrag> <LeftMouse>
+map <RightRelease> :set scrolloff=1<cr>
+
+map <MouseDown> <C-Y>
+map <S-MouseDown> <C-U>
+map <MouseUp> <C-E>
+map <S-MouseUp> <C-D>
+
+map <Home> <C-W><C-K>
+map <End> <C-W><C-J>
+map <S-Home> <C-W><C-L>
+map <S-End> <C-H><C-H>
+
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -241,13 +244,6 @@ map Q gq
 " This is an alternative that also works in block mode, but the deleted
 " text is lost and it only works for putting the current register.
 "vnoremap p "_dp
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -281,21 +277,7 @@ else
 
 endif " has("autocmd")
 
-colorscheme koehler
-
-map <RightMouse> :set scrolloff=20<cr>
-map <RightDrag> <LeftMouse>
-map <RightRelease> :set scrolloff=1<cr>
-
-map <MouseDown> <C-Y>
-map <S-MouseDown> <C-U>
-map <MouseUp> <C-E>
-map <S-MouseUp> <C-D>
-
-map <Home> <C-W><C-K>
-map <End> <C-W><C-J>
-map <S-Home> <C-W><C-L>
-map <S-End> <C-H><C-H>
+colorscheme jellybeans
 
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1

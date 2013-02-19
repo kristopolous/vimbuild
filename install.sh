@@ -24,35 +24,7 @@ WHICH=/usr/bin/which
 
 pwd_start=`pwd`
 
-_mkdir () {
-  while [ $# -gt 0 ]; do
-    if [ ! -d "$1" ]; then 
-      [ -e "$1" ] && rm -f "$1"
-      mkdir -p "$1"
-    fi
-    shift
-  done
-}
-
-die () {
-  echo $1
-  exit 3
-}
-
-info() {
-  echo "$1"
-}
-
-newtemp(){
-  # RHEL doesn't have tempfile
-  if ( silentfind tempfile ); then
-    tempfile=`tempfile`
-  else
-    tempfile=/tmp/$RANDOM-`date +"%s"`
-  fi
-
-  rm $tempfile
-}
+. common.sh
 
 buildit () {
   (
