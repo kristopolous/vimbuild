@@ -143,7 +143,7 @@ Setup () {
     installpkg ri ri
   fi
 
-  ncurses=`$PKGSEARCH libncurses | grep dev | head -1 | awk ' { print $1 } '`
+  ncurses=`$PKGSEARCH libncurses5 | grep dev | head -1 | awk ' { print $1 } '`
 
   if ! findpkg $ncurses; then
     $PKGMANAGER install $ncurses > /dev/null || die "Can't install ncurses"
