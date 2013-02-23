@@ -277,7 +277,7 @@ else
 
 endif " has("autocmd")
 
-colorscheme jellybeans
+colorscheme kristopolous
 
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
