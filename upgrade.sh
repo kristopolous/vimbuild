@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 #
 # vimbuild
 # 
@@ -12,9 +12,5 @@
 
 . common.sh
 
-Setup
-Clean
-Download
-Build
 Install
 Finish
