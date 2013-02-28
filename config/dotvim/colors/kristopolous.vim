@@ -22,7 +22,7 @@ highlight DiffText      term=underline  cterm=bold,underline    ctermfg=white   
 highlight DiffDelete    term=reverse    cterm=bold              ctermfg=darkmagenta ctermbg=none
 
 hi SpecialKey	  term=bold        	    cterm=bold      		ctermfg=darkred  
-hi NonText		  term=bold        	    cterm=bold      		ctermfg=darkred  
+hi NonText		  term=bold        	    cterm=bold      		ctermfg=240
 hi Directory	  term=bold        	    cterm=bold      		ctermfg=131
 hi Search		  term=reverse                       		    ctermfg=white       ctermbg=red      
 hi MoreMsg		  term=bold        	    cterm=bold      		ctermfg=darkgreen	
@@ -37,11 +37,11 @@ hi Visual		  term=reverse	   	    cterm=reverse
 hi WarningMsg	  term=standout    	    cterm=bold      		ctermfg=darkred 
 hi Comment		  term=bold        	    cterm=none      		ctermfg=77
 hi Constant		  term=underline   	    cterm=bold      		ctermfg=213
-hi Special		  term=bold        	    cterm=bold      		ctermfg=red  
-hi Scope		  term=underline                    		    ctermfg=red  
+hi Special		  term=bold        	    cterm=bold      		ctermfg=2
+hi Scope		  term=underline                    		    ctermfg=88
 hi Identifier	  term=underline                    		    ctermfg=244
-hi Statement	  term=bold         	cterm=bold     		    ctermfg=185
-hi PreProc		  term=underline                    		    ctermfg=207
+hi Statement	  term=bold         	cterm=none     		    ctermfg=145
+hi PreProc		  term=underline        cterm=bold     		    ctermfg=108
 hi Type			  term=underline    	cterm=none     		    ctermfg=108
 hi Term           term=none             cterm=bold              ctermfg=216
 hi ErrorMsg		  term=standout    	    cterm=bold      		ctermfg=red         ctermbg=none
