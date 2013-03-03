@@ -281,3 +281,6 @@ colorscheme kristopolous
 
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+
+let g:closetag_html_style=1 
+au Filetype html,xml,xsl source ~/.vim/autoload/closetag.vim 
