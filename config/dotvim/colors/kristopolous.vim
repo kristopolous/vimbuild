@@ -47,6 +47,7 @@ hi Term           term=none             cterm=bold              ctermfg=216
 hi ErrorMsg		  term=standout    	    cterm=bold      		ctermfg=red         ctermbg=none
 hi Error		  term=reverse	                    		    ctermfg=darkcyan    ctermbg=black  
 hi Todo			  term=standout                     		    ctermfg=120	    ctermbg=none
+hi Folded                           cterm=none              ctermfg=242        ctermbg=233
 hi FoldColumn                           cterm=none              ctermfg=grey        ctermbg=none
 hi Paren	                                                    ctermfg=brown	
 hi CursorLine	  term=bold         	cterm=bold
