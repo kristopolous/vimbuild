@@ -185,7 +185,10 @@ nnoremap <F11> :tabp<cr>
 nnoremap q :q<cr>
 nnoremap w :w<cr>
 
-" nnoremap <silent> <C-T> :ConqueTerm zsh<CR>
+" Break out both for vimdiff
+if v:progname =~? "vimdiff"
+  nnoremap q :q<cr>:q<cr>
+endif
 
 " Have some jump keys for going around panes
 nnoremap <C-Left> <C-W>h
@@ -227,6 +230,7 @@ map <RightMouse> :set scrolloff=20<cr>
 map <RightDrag> <LeftMouse>
 map <RightRelease> :set scrolloff=1<cr>
 
+" Make the freakin scroll wheel work
 map <MouseDown> <C-Y>
 map <S-MouseDown> <C-U>
 map <MouseUp> <C-E>
@@ -245,37 +249,22 @@ map Q gq
 " text is lost and it only works for putting the current register.
 "vnoremap p "_dp
 
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
+" Put these in an autocmd group, so that we can delete them easily.
+augroup vimrcEx
+au!
 
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
+" For all text files set 'textwidth' to 78 characters.
+autocmd FileType text setlocal textwidth=78
 
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal g`\"" |
+  \ endif
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-  augroup END
-
-else
-
-  set smartindent		" always set autoindenting on
-
-endif " has("autocmd")
+augroup END
 
 colorscheme kristopolous
 
