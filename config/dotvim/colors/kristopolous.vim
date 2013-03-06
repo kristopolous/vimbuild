@@ -32,7 +32,7 @@ hi Question		  term=standout    	    cterm=bold      		ctermfg=darkgreen
 hi StatusLine	  term=reverse     	    cterm=undercurl 		ctermfg=grey        ctermbg=black
 hi StatusLineNC   term=bold,reverse	    cterm=underline 		ctermfg=darkblue    ctermbg=black 
 hi VertSplit	  term=underline        cterm=none     		    ctermfg=white    ctermbg=black
-hi Title		  term=bold        	    cterm=bold      		ctermfg=darkmagenta 
+hi Title		  term=bold        	    cterm=bold      		ctermfg=004
 hi Visual		  term=reverse	   	    cterm=reverse 
 hi WarningMsg	  term=standout    	    cterm=bold      		ctermfg=darkred 
 hi Comment		  term=bold        	    cterm=none      		ctermfg=77
@@ -47,7 +47,7 @@ hi Term           term=none             cterm=bold              ctermfg=216
 hi ErrorMsg		  term=standout    	    cterm=bold      		ctermfg=red         ctermbg=none
 hi Error		  term=reverse	                    		    ctermfg=darkcyan    ctermbg=black  
 hi Todo			  term=standout                     		    ctermfg=120	    ctermbg=none
-hi Folded                           cterm=none              ctermfg=242        ctermbg=none
+hi Folded                               cterm=none              ctermfg=242        ctermbg=none
 hi FoldColumn                           cterm=none              ctermfg=grey        ctermbg=none
 hi Paren	                                                    ctermfg=brown	
 hi CursorLine	  term=bold         	cterm=bold

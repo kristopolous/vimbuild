@@ -214,7 +214,8 @@ nmap <F6> :w<cr>:make
 map <F6> :w<cr>:make 
 imap <F6> <ESC>:w<cr>make 
 
-nnoremap <silent> <F4> :cn<cr>
+" Re-indent file with f4
+map <F4> mzgg=G`z<CR>
 
 " make comma and dot expand and collapse folds
 nmap , zc
