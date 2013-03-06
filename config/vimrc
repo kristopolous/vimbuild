@@ -37,10 +37,10 @@ filetype plugin on
 
 set tags+=~/.vim/systags
 
-" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+" Use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
 set cscopetag
 
-" check cscope for definition of a symbol before checking ctags: set to 1
+" Check cscope for definition of a symbol before checking ctags: set to 1
 " if you want the reverse search order.
 set csto=0
 
@@ -52,7 +52,7 @@ elseif $CSCOPE_DB != ""
   cs add $CSCOPE_DB
 endif
 
-" show msg when any other cscope db added
+" Show msg when any other cscope db added
 set cscopeverbose  
 
 " Try to be aggressively 2 spaces.
@@ -67,7 +67,7 @@ set visualbell t_vb=
 
 set backup		" keep a backup file
 
-" allow backspacing over everything in insert mode
+" Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
@@ -199,6 +199,7 @@ nnoremap <M-Down> <C-W>+
 nnoremap <M-Up> <C-W>-
 nnoremap <M-Left> <C-W><
 nnoremap <M-Right> <C-W>>
+
 " noremap <F4> :call AckExpand(expand('<cword>'))<cr>
 nmap <C-b> :tabnew <C-d>
 imap <C-b> <ESC>:tabnew <C-d>
@@ -274,3 +275,12 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 let g:closetag_html_style=1 
 au Filetype html,xml,xsl source ~/.vim/autoload/closetag.vim 
+
+" 
+" What annoys me, is that if I :wq, vim remains active, it only closes the
+" documents' split-screen. I end up with a fullscreen NERDTree. I would like
+" NERDTree to close too, on closing the last tab or buffers. 
+"
+" http://stackoverflow.com/questions/5581697/close-vim-nerdtree-on-close-of-file
+"
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
