@@ -36,7 +36,7 @@ hi Title		  term=bold        	    cterm=bold      		ctermfg=004
 hi Visual		  term=reverse	   	    cterm=reverse 
 hi WarningMsg	  term=standout    	    cterm=bold      		ctermfg=darkred 
 hi Comment		  term=bold        	    cterm=none      		ctermfg=77
-hi Constant		  term=underline   	    cterm=bold      		ctermfg=213
+hi Constant		  term=underline   	    cterm=none      		ctermfg=151
 hi Special		  term=bold        	    cterm=bold      		ctermfg=2
 hi Scope		  term=underline                    		    ctermfg=88
 hi Identifier	  term=underline                    		    ctermfg=244
