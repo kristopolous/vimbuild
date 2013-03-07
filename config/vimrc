@@ -218,6 +218,10 @@ imap <F6> <ESC>:w<cr>make
 " Re-indent file with f4
 map <F4> mzgg=G`z<CR>
 
+map <F2> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " make comma and dot expand and collapse folds
 nmap , zc
 map , zc
