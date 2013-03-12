@@ -54,9 +54,9 @@ hi Paren	                                                    ctermfg=brown
 hi CursorLine	  term=bold         	cterm=bold
 hi CursorColumn	  term=bold         	cterm=bold
 hi MatchParen	  term=reverse                      		    ctermfg=blue 
-hi TabLine		  term=bold,reverse 	cterm=underline,bold	ctermfg=lightblue   ctermbg=black 
-hi TabLineFill	  term=bold,reverse 	cterm=underline 		ctermfg=lightblue   ctermbg=black 
-hi TabLineSel	  term=reverse	                    		    ctermfg=white       ctermbg=lightblue 
+hi TabLine		  term=bold,reverse 	cterm=underline,bold	ctermfg=32   ctermbg=none
+hi TabLineFill	  term=bold,reverse 	cterm=underline 		ctermfg=24   ctermbg=none
+hi TabLineSel	  term=reverse	                    		    ctermfg=white       ctermbg=24
 
 hi Cursor		  guifg=bg	guibg=Green
 
