@@ -30,9 +30,9 @@ hi MoreMsg		  term=bold        	    cterm=bold      		ctermfg=darkgreen
 hi ModeMsg		  term=bold        	    cterm=bold  
 hi LineNr		  term=underline   	    cterm=bold      		ctermfg=darkgrey	
 hi Question		  term=standout    	    cterm=bold      		ctermfg=darkgreen	
-hi StatusLine	  term=reverse     	    cterm=undercurl 		ctermfg=grey        ctermbg=black
-hi StatusLineNC   term=bold,reverse	    cterm=underline 		ctermfg=darkblue    ctermbg=black 
-hi VertSplit	  term=underline        cterm=none     		    ctermfg=white    ctermbg=black
+hi StatusLine	  term=reverse     	    cterm=undercurl 		ctermfg=252        ctermbg=236
+hi StatusLineNC   term=bold,reverse	    cterm=underline 		ctermfg=244    ctermbg=none
+hi VertSplit	  term=underline        cterm=none     		    ctermfg=248    ctermbg=none
 hi Title		  term=bold        	    cterm=bold      		ctermfg=004
 hi Visual		  term=reverse	   	    cterm=reverse 
 hi WarningMsg	  term=standout    	    cterm=bold      		ctermfg=darkred 
