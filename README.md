@@ -7,7 +7,7 @@ To install, just run
 
 Screenshots ... everyone loves screen shots
 
-<img src=http://vukkake.com/vimdiff-new.png>
+<img src=http://i.imgur.com/0sLBAF3.png>
 
 [acidx](https://github.com/kristopolous/acidx) is also used above.
 
