@@ -248,6 +248,8 @@ map <End> <C-W><C-J>
 map <S-Home> <C-W><C-L>
 map <S-End> <C-H><C-H>
 
+" Auto comment for asterisks
+set formatoptions+=r
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
