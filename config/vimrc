@@ -291,3 +291,10 @@ au Filetype html,xml,xsl source ~/.vim/autoload/closetag.vim
 " http://stackoverflow.com/questions/5581697/close-vim-nerdtree-on-close-of-file
 "
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" When editing a text file, if you want word wrapping, but only want line breaks inserted when you explicitly press the Enter key: (http://vim.wikia.com/wiki/Word_wrap_without_line_breaks)
+
+:set wrap
+:set linebreak
+:set nolist  " list disables linebreak
+
