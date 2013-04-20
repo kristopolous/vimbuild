@@ -34,7 +34,7 @@ hi StatusLine	  term=reverse     	    cterm=undercurl 		ctermfg=252        cterm
 hi StatusLineNC   term=bold,reverse	    cterm=underline 		ctermfg=244    ctermbg=none
 hi VertSplit	  term=underline        cterm=none     		    ctermfg=248    ctermbg=none
 hi Title		  term=bold        	    cterm=bold      		ctermfg=004
-hi Visual		  term=reverse	   	    cterm=reverse 
+hi Visual		  term=reverse	   	    cterm=none              ctermfg=255   ctermbg=018
 hi WarningMsg	  term=standout    	    cterm=bold      		ctermfg=darkred 
 hi Comment		  term=bold        	    cterm=none      		ctermfg=75
 hi Constant		  term=underline   	    cterm=none      		ctermfg=151
