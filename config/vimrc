@@ -298,3 +298,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 :set linebreak
 :set nolist  " list disables linebreak
 
+set wildmenu
+set wildmode=list:longest,full
+set wildignore=*.o,*~,*.pyc,*.pyo,*.so,*.sw*,__pycache__
