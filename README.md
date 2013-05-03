@@ -17,8 +17,7 @@ Screenshots ... everyone loves screen shots
 
 ### some notes
 
-I've been using vim since about 1997. I don't use pathogen because I don't see why anyone would want that. I also don't use easymove or spark or git gutter or anything by tpope.
+I've been using vim since about 1997. I don't use [pathogen](https://github.com/tpope/vim-pathogen). I also don't use [EasyMotion](http://www.vim.org/scripts/script.php?script_id=3526) or [Sparkup](https://github.com/rstacruz/sparkup) or [Git Gutter](https://github.com/airblade/vim-gitgutter) or anything by [tpope](https://github.com/tpope). Not that I have anything against these things, I just don't use them.
 
 So if you are looking for some souped-up tricked-out rice-rocket of a vim, you should go elsewhere.
 
-But if you are looking for one that some guy that codes in about 4-6 languages a day uses every day, then here you go.
