@@ -10,5 +10,6 @@ cp -r ~/.vim config/
 rm -fr config/dotvim
 mv config/.vim config/dotvim
 _rm config/dotvim/.netrwhist
-cd config
-tar czf dotvim.tar.gz dotvim
+cd config/dotvim
+echo "Making easy-install"
+tar czf ../dotvim.tar.gz .
