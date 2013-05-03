@@ -5,6 +5,10 @@ To install, just run
 
     ./install.sh
 
+orrrr
+
+    curl https://raw.github.com/kristopolous/vimbuild/master/easyinstall.sh | sh
+
 Screenshots ... everyone loves screen shots
 
 <img src=http://i.imgur.com/0sLBAF3.png>
