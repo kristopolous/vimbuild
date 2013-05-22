@@ -8,10 +8,6 @@ function FoldBrace()
 	return foldlevel(v:lnum-1)
 endfunction
 
-" function AckExpand(term)
-"	execute 'Ack' expand('<cword>')
-"endfunction
-
 " Try to get sensible omni complete that shows up when you want it to.
 function! Mosh_Tab_Or_Complete()
 	if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[:.\>]'
@@ -309,3 +305,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.o,*~,*.pyc,*.pyo,*.so,*.sw*,__pycache__
+
+" Auto-comment for the languages that I actually use
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
