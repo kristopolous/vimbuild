@@ -58,6 +58,7 @@ newtemp(){
 
 log=/dev/stderr
 VIM_VERSION=7.4
+VIM_DIR=74
 CSCOPE_VERSION=15.8a
 CTAGS_VERSION=5.8
 BINDIR=~/bin
@@ -225,7 +226,7 @@ Build () {
     fi
 
     configOpts="--enable-pythoninterp --enable-rubyinterp --with-x --enable-cscope"
-    buildit vim73 vim
+    buildit vim${VIM_DIR} vim
   )
 }
 
