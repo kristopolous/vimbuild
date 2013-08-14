@@ -281,11 +281,12 @@ augroup END
 
 colorscheme kristopolous
 
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+au FileType ruby,eruby set omnifunc=rubycomplete#Complete
+au FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 let g:closetag_html_style=1 
 au Filetype html,xml,xsl source ~/.vim/autoload/closetag.vim 
+au FileType javascript :EclimDisable 
 
 " 
 " What annoys me, is that if I :wq, vim remains active, it only closes the
@@ -306,5 +307,3 @@ set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.o,*~,*.pyc,*.pyo,*.so,*.sw*,__pycache__
 
-" Auto-comment for the languages that I actually use
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
