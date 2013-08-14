@@ -57,7 +57,7 @@ newtemp(){
 #
 
 log=/dev/stderr
-VIM_VERSION=7.3
+VIM_VERSION=7.4
 CSCOPE_VERSION=15.8a
 CTAGS_VERSION=5.8
 BINDIR=~/bin
