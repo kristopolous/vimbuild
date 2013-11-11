@@ -307,3 +307,7 @@ set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.o,*~,*.pyc,*.pyo,*.so,*.sw*,__pycache__
 
+" http://stackoverflow.com/questions/178257/how-to-avoid-syntax-highlighting-for-large-files-in-vim
+" Adding the following line to _vimrc does the trick, with a bonus: it
+" handles gzipped files, too (which is a common case with huge files):
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
