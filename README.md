@@ -5,9 +5,9 @@ To install, just run
 
     ./install.sh
 
-orrrr
+orrrr if you have everything built and you think everything is good.
 
-    curl https://raw.github.com/kristopolous/vimbuild/master/easyinstall.sh | sh
+    ./easyinstall.sh
 
 Screenshots ... everyone loves screen shots
 
