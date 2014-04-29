@@ -44,6 +44,26 @@ set csto=0
 if filereadable("cscope.out")
   cs add cscope.out  
   " else add the database pointed to by environment variable 
+elseif filereadable("../cscope.out")
+  cs add ../cscope.out  
+elseif filereadable("../../cscope.out")
+  cs add ../../cscope.out  
+elseif filereadable("../../../cscope.out")
+  cs add ../../../cscope.out  
+elseif filereadable("../../../../cscope.out")
+  cs add ../../../../cscope.out  
+elseif filereadable("../../../../../cscope.out")
+  cs add ../../../../../cscope.out  
+elseif filereadable("../../../../../../cscope.out")
+  cs add ../../../../../../cscope.out  
+elseif filereadable("../../../../../../../cscope.out")
+  cs add ../../../../../../../cscope.out  
+elseif filereadable("../../../../../../../../cscope.out")
+  cs add ../../../../../../../../cscope.out
+elseif filereadable("../../../../../../../../../cscope.out")
+  cs add ../../../../../../../../../cscope.out  
+elseif filereadable("../../../../../../../../../../cscope.out")
+  cs add ../../../../../../../../../../cscope.out  
 elseif $CSCOPE_DB != ""
   cs add $CSCOPE_DB
 endif
@@ -51,7 +71,7 @@ endif
 " Show msg when any other cscope db added
 set cscopeverbose  
 
-" Try to be aggressively 2 spaces.
+" Try to be aggressively 4 spaces.
 set smartindent
 set tabstop=2
 set shiftwidth=2
@@ -120,7 +140,7 @@ let g:netrw_browse_split=3
 " files that contain 'time.h' as part of their name).
 
 
-" To do the first type of search, hit 'CTRL-\', followed by one of the
+" To do the first type of search, hit what is below, followed by one of the
 " cscope search types above (s,g,c,t,e,f,i,d).  The result of your cscope
 " search will be displayed in the current window.  You can use CTRL-T to
 " go back to where you were before the search.  
@@ -134,15 +154,6 @@ let g:netrw_browse_split=3
 "		6 or e: Find this egrep pattern
 "		7 or f: Find this file
 "		8 or i: Find files #including this file
-nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>	
-nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-
 
 " Using 'CTRL-spacebar' (intepreted as CTRL-@ by vim) then a search type
 " makes the vim window split horizontally, with search result displayed in
@@ -313,4 +324,4 @@ set wildignore=*.o,*~,*.pyc,*.pyo,*.so,*.sw*,__pycache__
 " http://stackoverflow.com/questions/178257/how-to-avoid-syntax-highlighting-for-large-files-in-vim
 " Adding the following line to _vimrc does the trick, with a bonus: it
 " handles gzipped files, too (which is a common case with huge files):
-autocmd BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 200000 | syntax clear | endif
