@@ -38,12 +38,12 @@ hi Visual		  term=reverse	   	    cterm=none              ctermfg=255   ctermbg=
 hi WarningMsg	  term=standout    	    cterm=bold      		ctermfg=darkred 
 hi Comment		  term=bold        	    cterm=none      		ctermfg=75
 hi Constant		  term=underline   	    cterm=none      		ctermfg=151
-hi Special		  term=bold        	    cterm=none      		ctermfg=65
+hi Special		  term=bold        	    cterm=none      		ctermfg=114
 hi Scope		  term=underline                    		    ctermfg=88
-hi Identifier	  term=underline                    		    ctermfg=244
-hi Statement	  term=bold         	cterm=none     		    ctermfg=145
-hi PreProc		  term=underline        cterm=none     		    ctermfg=247
-hi Type			  term=underline    	cterm=none     		    ctermfg=108
+hi Identifier	  term=underline                    		    ctermfg=256
+hi Statement	  term=bold         	cterm=none     		    ctermfg=225
+hi PreProc		  term=underline        cterm=none     		    ctermfg=252
+hi Type			  term=underline    	cterm=none     		    ctermfg=195
 hi Term           term=none             cterm=bold              ctermfg=216
 hi ErrorMsg		  term=standout    	    cterm=bold      		ctermfg=red         ctermbg=none
 hi Error		  term=reverse	                    		    ctermfg=darkcyan    ctermbg=black  
