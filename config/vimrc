@@ -290,6 +290,7 @@ autocmd BufReadPost *
 
 augroup END
 
+" colorscheme kristopolous
 colorscheme kristopolous
 
 au FileType ruby,eruby set omnifunc=rubycomplete#Complete
