@@ -330,3 +330,6 @@ set wildignore=*.o,*~,*.pyc,*.pyo,*.so,*.sw*,__pycache__
 " Adding the following line to _vimrc does the trick, with a bonus: it
 " handles gzipped files, too (which is a common case with huge files):
 autocmd BufWinEnter * if line2byte(line("$") + 1) > 200000 | syntax clear | endif
+
+set ai
+set runtimepath^=~/.vim/bundle/ctrlp.vim
