@@ -1,3 +1,5 @@
+execute pathogen#infect()
+
 function FoldBrace()
 	if getline(v:lnum+1)[0] == '{'
 		return '>1'
