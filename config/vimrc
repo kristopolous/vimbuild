@@ -296,7 +296,6 @@ au FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 let g:closetag_html_style=1 
 au Filetype html,xml,xsl source ~/.vim/autoload/closetag.vim 
-au FileType javascript :EclimDisable 
 
 " 
 " What annoys me, is that if I :wq, vim remains active, it only closes the
