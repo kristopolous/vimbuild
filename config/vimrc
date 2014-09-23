@@ -72,7 +72,7 @@ set cscopetag
 " Show msg when any other cscope db added
 set cscopeverbose  
 
-" Try to be aggressively 4 spaces.
+" Try to be aggressively 2 spaces.
 set smartindent
 set tabstop=2
 set shiftwidth=2
@@ -87,9 +87,9 @@ set visualbell t_vb=
 
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
+set history=150		" keep 50 lines of command line history
+set ruler		    " show the cursor position all the time
+set showcmd		  " display incomplete commands
 set incsearch		" do incremental searching
 set fdc=1
 set foldlevel=10
@@ -190,7 +190,6 @@ nmap <C-@><C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <C-@><C-@>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>	
 nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
 
-
 inoremap <Tab> <C-R>=Mosh_Tab_Or_Complete()<CR>
 map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
@@ -205,6 +204,7 @@ nnoremap w :w<cr>
 " Break out both for vimdiff
 if v:progname =~? "vimdiff"
   " don't warn about existing files being open elsewhere
+  " Found http://stackoverflow.com/questions/1098159/vim-stop-existing-swap-file-warnings
   set shortmess+=A
   nnoremap q :q<cr>:q<cr>
 endif
@@ -218,7 +218,6 @@ nnoremap <M-Down> <C-W>+
 nnoremap <M-Up> <C-W>-
 nnoremap <M-Left> <C-W><
 nnoremap <M-Right> <C-W>>
-
 
 noremap <F4> :call AckExpand(expand('<cword>'))<cr>
 nmap <C-b> :tabnew <C-d>
