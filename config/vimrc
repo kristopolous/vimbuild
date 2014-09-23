@@ -8,6 +8,10 @@ function FoldBrace()
 	return foldlevel(v:lnum-1)
 endfunction
 
+function AckExpand(term)
+  execute 'Ack' expand('<cword>')
+endfunction
+
 " Try to get sensible omni complete that shows up when you want it to.
 function! Mosh_Tab_Or_Complete()
 	if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[:.\>]'
@@ -23,6 +27,7 @@ set nu
 set nocp
 
 " From http://www.reddit.com/r/vim/comments/2as7uu/how_to_remove_all_vim_swap_files_from_a_project/ciyahw0N
+set backup		" keep a backup file
 set backupdir=/tmp/
 set directory=/tmp/
 
@@ -32,7 +37,7 @@ set tags+=~/.vim/systags
 
 " Check cscope for definition of a symbol before checking ctags: set to 1
 " if you want the reverse search order.
-set csto=0
+set csto=1
 
 " add any cscope database in current directory
 if filereadable("cscope.out")
@@ -77,11 +82,8 @@ set foldmethod=expr
 " For remote editing...
 set cmdheight=2
 
-
 " No screen flash, no beep, no nothing.
 set visualbell t_vb=
-
-set backup		" keep a backup file
 
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -202,6 +204,8 @@ nnoremap w :w<cr>
 
 " Break out both for vimdiff
 if v:progname =~? "vimdiff"
+  " don't warn about existing files being open elsewhere
+  set shortmess+=A
   nnoremap q :q<cr>:q<cr>
 endif
 
@@ -215,7 +219,8 @@ nnoremap <M-Up> <C-W>-
 nnoremap <M-Left> <C-W><
 nnoremap <M-Right> <C-W>>
 
-" noremap <F4> :call AckExpand(expand('<cword>'))<cr>
+
+noremap <F4> :call AckExpand(expand('<cword>'))<cr>
 nmap <C-b> :tabnew <C-d>
 imap <C-b> <ESC>:tabnew <C-d>
 
@@ -231,7 +236,7 @@ map <F6> :w<cr>:make
 imap <F6> <ESC>:w<cr>make 
 
 " Re-indent file with f4
-map <F4> mzgg=G`z<CR>
+" map <F4> mzgg=G`z<CR>
 
 map <F2> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -326,3 +331,4 @@ autocmd BufWinEnter * if line2byte(line("$") + 1) > 200000 | syntax clear | endi
 
 set ai
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ackprg = 'ag --nogroup --nocolor --column'
