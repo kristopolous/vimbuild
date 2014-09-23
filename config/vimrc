@@ -201,12 +201,20 @@ nnoremap <F11> :tabp<cr>
 nnoremap q :q<cr>
 nnoremap w :w<cr>
 
+" make comma and dot expand and collapse folds
+nmap , zc
+nmap . zO
+
 " Break out both for vimdiff
 if v:progname =~? "vimdiff"
   " don't warn about existing files being open elsewhere
   " Found http://stackoverflow.com/questions/1098159/vim-stop-existing-swap-file-warnings
   set shortmess+=A
   nnoremap q :q<cr>:q<cr>
+
+  " note the ordering, reverting the changes in a git diff
+  " will override expansion
+  map . :diffput<CR>
 endif
 
 " Have some jump keys for going around panes
@@ -230,7 +238,6 @@ nmap <C-K> :cp <cr>
 imap <C-K> <ESC>:cp <cr>
 
 " Map some f keys for makefile style development
-nmap <F6> :w<cr>:make 
 map <F6> :w<cr>:make 
 imap <F6> <ESC>:w<cr>make 
 
@@ -240,13 +247,6 @@ imap <F6> <ESC>:w<cr>make
 map <F2> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-" make comma and dot expand and collapse folds
-nmap , zc
-map , zc
-
-nmap . zO
-map . zO
 
 nnoremap <silent> <F8> :NERDTreeToggle<CR><C-w>h<C-w><C-w>h<C-w>h
 nnoremap <silent> <F7> :TlistToggle<CR><C-w>h<C-w><C-w>h<C-w>h
