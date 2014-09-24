@@ -214,7 +214,7 @@ if v:progname =~? "vimdiff"
 
   " note the ordering, reverting the changes in a git diff
   " will override expansion
-  map . :diffput<CR>
+  map > :diffput<CR>
 endif
 
 " Have some jump keys for going around panes
