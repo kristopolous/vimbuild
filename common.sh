@@ -94,6 +94,13 @@ buildit () {
   )
 }
 
+gotpermission () {
+  echo "Script wants permission for: $1"
+  echo -n "Do you grant this? [ Y / (N) ] "
+  read permission
+  return [ $permission == 'y' -o $permission == 'Y' ]
+}
+
 downloadit () {
   (
     cd $DOWNLOADDIR
@@ -246,7 +253,9 @@ Install () {
   fi
 
   if ( silentfind npm ); then
-    npm install -g git://github.com/ramitos/jsctags.git
+    if ( gotpermission "sudo install jsctags" ); then
+      sudo npm install -g git://github.com/ramitos/jsctags.git
+    fi
   fi
 
   cp -r config/dotvim ~/.vim
