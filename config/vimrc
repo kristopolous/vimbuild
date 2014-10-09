@@ -332,3 +332,4 @@ autocmd BufWinEnter * if line2byte(line("$") + 1) > 200000 | syntax clear | endi
 set ai
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:showmarks_textlower="a"
