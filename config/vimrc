@@ -33,7 +33,7 @@ set directory=/tmp/
 
 filetype plugin on
 
-set tags+=~/.vim/systags
+set tags+=~/.vim/systags;../;../../;../../../;
 
 " Check cscope for definition of a symbol before checking ctags: set to 1
 " if you want the reverse search order.
@@ -332,4 +332,3 @@ autocmd BufWinEnter * if line2byte(line("$") + 1) > 200000 | syntax clear | endi
 set ai
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ackprg = 'ag --nogroup --nocolor --column'
-let g:showmarks_textlower="a"
