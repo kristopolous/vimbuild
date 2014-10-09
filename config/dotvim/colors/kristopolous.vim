@@ -18,7 +18,7 @@ let g:colors_name = "kristopolous"
 
 highlight DiffAdd       term=reverse    cterm=none              ctermfg=white       ctermbg=darkmagenta
 highlight DiffChange    term=reverse                            ctermfg=white       ctermbg=darkgrey 
-highlight DiffText      term=underline  cterm=bold,underline    ctermfg=white       ctermbg=darkgrey 
+highlight DiffText      term=reverse    cterm=bold              ctermfg=white       ctermbg=darkgrey 
 highlight DiffDelete    term=reverse    cterm=bold              ctermfg=darkmagenta ctermbg=none
 
 hi SpecialKey	  term=bold        	    cterm=bold      		ctermfg=darkred  

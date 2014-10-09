@@ -79,8 +79,8 @@ set shiftwidth=2
 set expandtab
 set foldexpr=FoldBrace()
 set foldmethod=expr
-" For remote editing...
-set cmdheight=2
+" For remote editing... actually i never do that any more
+set cmdheight=1
 
 " No screen flash, no beep, no nothing.
 set visualbell t_vb=
@@ -205,6 +205,7 @@ nnoremap w :w<cr>
 nmap , zc
 nmap . zO
 
+" g:NERDTreeMapPreview
 " Break out both for vimdiff
 if v:progname =~? "vimdiff"
   " don't warn about existing files being open elsewhere
