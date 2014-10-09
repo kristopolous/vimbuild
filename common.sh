@@ -245,6 +245,10 @@ Install () {
     cp ~/.vimrc $tempfile
   fi
 
+  if ( silentfind npm ); then
+    npm install -g git://github.com/ramitos/jsctags.git
+  fi
+
   cp -r config/dotvim ~/.vim
   cp config/vimrc ~/.vimrc
 }
