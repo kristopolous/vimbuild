@@ -9,6 +9,20 @@
 #
 #  You can find the latest here: https://github.com/kristopolous/vimbuild
 #
+log=/dev/stderr
+VIM_VERSION=7.4
+VIM_DIR=74
+CSCOPE_VERSION=15.8a
+CTAGS_VERSION=5.8
+BINDIR=~/bin
+LIBDIR=~/lib
+STARTDIR=`pwd`/temp
+DOWNLOADDIR=$STARTDIR/_distfiles_
+
+# avoid the builtin shell which
+WHICH=/usr/bin/which
+
+pwd_start=`pwd`
 
 _mkdir () {
   while [ $# -gt 0 ]; do
@@ -44,32 +58,20 @@ newtemp(){
   rm $tempfile
 }
 
-#!/bin/bash
-#
-# vimbuild
-# 
-#  A bash script that builds a custom version of vim and installs
-#  a variety of plugins.
-#
-#  This is an unversioned, often-changing array of stuff.
-#
-#  You can find the latest here: https://github.com/kristopolous/vimbuild
-#
+install_jsctags () {
+  (
+    cd $STARTDIR
+    git clone https://github.com/mozilla/doctorjs.git
 
-log=/dev/stderr
-VIM_VERSION=7.4
-VIM_DIR=74
-CSCOPE_VERSION=15.8a
-CTAGS_VERSION=5.8
-BINDIR=~/bin
-LIBDIR=~/lib
-STARTDIR=`pwd`/temp
-DOWNLOADDIR=$STARTDIR/_distfiles_
+    # from https://github.com/mozilla/doctorjs/issues/55#issuecomment-25028455
+    cd doctorjs 
+    git submodule update --init --recursive
 
-# avoid the builtin shell which
-WHICH=/usr/bin/which
-
-pwd_start=`pwd`
+    # from https://github.com/mozilla/doctorjs/issues/52#issuecomment-48830845
+    sed -i '51i tags: [],' ./lib/jsctags/ctags/index.js
+    sudo make install
+  )
+}
 
 buildit () {
   (
@@ -253,8 +255,8 @@ Install () {
   fi
 
   if ( silentfind npm ); then
-    if ( gotpermission "sudo install jsctags" ); then
-      sudo npm install -g git://github.com/ramitos/jsctags.git
+    if ( gotpermission "install mozilla's doctorjs for javscript ctags" ); then
+      install_jsctags
     fi
   fi
 
