@@ -11,7 +11,6 @@
 #
 log=/dev/stderr
 VIM_VERSION=7.4
-VIM_DIR=74
 CSCOPE_VERSION=15.8a
 CTAGS_VERSION=5.8
 BINDIR=~/bin
@@ -222,7 +221,11 @@ Clean () {
 }
 
 Download () {
-  downloadit vim-$VIM_VERSION.tar.bz2 ftp://ftp.vim.org/pub/vim/unix
+  (
+    cd $STARTDIR
+    [ -e vim ] || hg clone https://vim.googlecode.com/hg/ vim
+  )
+  # downloadit vim-$VIM_VERSION.tar.bz2 ftp://ftp.vim.org/pub/vim/unix
 }
 
 Build () {
@@ -240,7 +243,7 @@ Build () {
     fi
 
     configOpts="--enable-pythoninterp --enable-rubyinterp --with-x --enable-cscope"
-    buildit vim${VIM_DIR} vim
+    buildit vim vim
   )
 }
 
