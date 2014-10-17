@@ -76,6 +76,8 @@ buildit () {
   (
     cd $STARTDIR/$1
 
+    make distclean
+
     CFLAGS='-O3' ./configure\
       --bindir=$BINDIR\
       --sbindir=$BINDIR\
@@ -178,7 +180,7 @@ Setup () {
 
   if silentfind apt-get; then
     PKGMANAGER="sudo apt-get -y"
-    PKGSEARCH="sudo apt-cache search"
+    PKGSEARCH="dpkg-query -W"
   elif silentfind yum; then
     PKGMANAGER="sudo yum"
     PKGSEARCH="sudo yum search"
@@ -223,7 +225,13 @@ Clean () {
 Download () {
   (
     cd $STARTDIR
-    [ -e vim ] || hg clone https://vim.googlecode.com/hg/ vim
+    if [ -e vim ]; then
+      cd vim
+      hg pull
+      hg update
+    else
+      hg clone https://vim.googlecode.com/hg/ vim
+    fi
   )
   # downloadit vim-$VIM_VERSION.tar.bz2 ftp://ftp.vim.org/pub/vim/unix
 }
