@@ -186,10 +186,13 @@ silentfind () {
 }
 
 InstallIfNeeded() {
-  if ! _findpkg $1; then
-    info "installing $1"
-    installpkg $1
-  fi
+  while [ $# -gt 0 ]; do
+    if ! _findpkg $1; then
+      info "installing $1"
+      installpkg $1
+    fi
+    shift
+  done
 }
 
 Setup () {
@@ -210,13 +213,7 @@ Setup () {
     die "Couldn't find a package manager"
   fi
 
-  InstallIfNeeded mercurial
-  InstallIfNeeded libncurses5-dev
-
-  if ! _findpkg build-essential; then
-    info "installing build-essential"
-    installpkg build-essential
-  fi
+  InstallIfNeeded mercurial libncurses5-dev build-essential
 }
 
 Clean () {
@@ -277,11 +274,11 @@ Install () {
     cp ~/.vimrc $tempfile
   fi
 
-  if ( silentfind npm ); then
-    if ( gotpermission "install mozilla's doctorjs for javscript ctags" ); then
-      install_jsctags
-    fi
-  fi
+#  if ( silentfind npm ); then
+#    if ( gotpermission "install mozilla's doctorjs for javscript ctags" ); then
+#      install_jsctags
+#    fi
+#  fi
 
   cp -r config/dotvim ~/.vim
   cp config/vimrc ~/.vimrc
