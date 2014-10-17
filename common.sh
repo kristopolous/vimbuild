@@ -135,6 +135,11 @@ replaceit () {
   chmod 0755 $BINDIR/$1
 }
 
+_findpkg () {
+  $PKGSEARCH $1 > /dev/null 
+  return $?
+}
+
 findpkg () {
   n=`dpkg -l $1 | wc -l`
 
@@ -146,16 +151,13 @@ findpkg () {
 }
 
 installpkg() {
-  test=$1
-  package=$2
-  if ( ! silentfind $test ); then
-    $PKGMANAGER install $package > /dev/null 
+  package=$1
+  $PKGMANAGER install $package > /dev/null 
 
-    if [ $? -ne 0 ]; then
-      die "Can't install $package"
-    else
-      return 0
-    fi
+  if [ $? -ne 0 ]; then
+    die "Can't install $package"
+  else
+    return 0
   fi
   return 0
 }
@@ -167,6 +169,13 @@ silentfind () {
     return 0
   else
     return 1
+  fi
+}
+
+InstallIfNeeded() {
+  if ! _findpkg $1; then
+    info "installing $1"
+    installpkg $1
   fi
 }
 
@@ -188,25 +197,12 @@ Setup () {
     die "Couldn't find a package manager"
   fi
 
-  if ! findpkg mercurial; then
-    info "installing mercurial"
-    installpkg mercurial
-  fi
+  InstallIfNeeded mercurial
+  InstallIfNeeded libncurses5-dev
 
-  if ! findpkg build-essential; then
+  if ! _findpkg build-essential; then
     info "installing build-essential"
-    installpkg cc build-essential
-  fi
-
-  if ! findpkg ri; then
-    info "installing ri"
-    installpkg ri ri
-  fi
-
-  ncurses=`$PKGSEARCH libncurses5 | grep dev | head -1 | awk ' { print $1 } '`
-
-  if ! findpkg $ncurses; then
-    $PKGMANAGER install $ncurses > /dev/null || die "Can't install ncurses"
+    installpkg build-essential
   fi
 }
 

@@ -14,7 +14,7 @@
 
 Setup
 Clean
-Download
-Build
-Install
-Finish
+#Download
+#Build
+#Install
+#Finish
