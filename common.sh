@@ -57,6 +57,20 @@ newtemp(){
   rm $tempfile
 }
 
+_hg() {
+  hg $*
+  if [ $? -ne "0" ]; then
+    echo "Last command failed. Exiting.";
+    exit 1
+  fi
+}
+
+_sudo () {
+  if ( gotpermission "$*" ); then
+    sudo $*
+  fi
+}
+
 install_jsctags () {
   (
     cd $STARTDIR
@@ -68,40 +82,39 @@ install_jsctags () {
 
     # from https://github.com/mozilla/doctorjs/issues/52#issuecomment-48830845
     sed -i '51i tags: [],' ./lib/jsctags/ctags/index.js
-    sudo make install
+    _sudo make install
   )
 }
 
 buildit () {
-  (
-    cd $STARTDIR/$1
+  cd $STARTDIR/$1
 
-    make distclean
+  make distclean
 
-    CFLAGS='-O3' ./configure\
-      --bindir=$BINDIR\
-      --sbindir=$BINDIR\
-      --libexecdir=$LIBDIR\
-      --datadir=$LIBDIR\
-      --sysconfdir=$LIBDIR\
-      --sharedstatedir=$LIBDIR\
-      --localstatedir=$LIBDIR\
-      --libdir=$LIBDIR\
-      --infodir=/tmp\
-      --mandir=/tmp\
-      $configOpts
+  CFLAGS='-O3' ./configure\
+    --bindir=$BINDIR\
+    --sbindir=$BINDIR\
+    --libexecdir=$LIBDIR\
+    --datadir=$LIBDIR\
+    --sysconfdir=$LIBDIR\
+    --sharedstatedir=$LIBDIR\
+    --localstatedir=$LIBDIR\
+    --libdir=$LIBDIR\
+    --infodir=/tmp\
+    --mandir=/tmp\
+    $configOpts
 
-    make $CPUS
-    replaceit $2
-    make install
-  )
+  make $CPUS
+  replaceit $2
+  make install
 }
 
 gotpermission () {
   echo "Script wants permission for: $1"
   echo -n "Do you grant this? [ Y / (N) ] "
   read permission
-  return [ $permission == 'y' -o $permission == 'Y' ]
+  [ $permission == 'y' -o $permission == 'Y' ]
+  return $?
 }
 
 downloadit () {
@@ -188,11 +201,11 @@ Setup () {
   fi
 
   if silentfind apt-get; then
-    PKGMANAGER="sudo apt-get -y"
+    PKGMANAGER="_sudo apt-get -y"
     PKGSEARCH="dpkg-query -W"
   elif silentfind yum; then
-    PKGMANAGER="sudo yum"
-    PKGSEARCH="sudo yum search"
+    PKGMANAGER="_sudo yum"
+    PKGSEARCH="yum search"
   else
     die "Couldn't find a package manager"
   fi
@@ -219,16 +232,14 @@ Clean () {
 }
 
 Download () {
-  (
-    cd $STARTDIR
-    if [ -e vim ]; then
-      cd vim
-      hg pull
-      hg update
-    else
-      hg clone https://vim.googlecode.com/hg/ vim
-    fi
-  )
+  cd $STARTDIR
+  if [ -e vim ]; then
+    cd vim
+    _hg pull
+    _hg update
+  else
+    _hg clone https://vim.googlecode.com/hg/ vim
+  fi
   # downloadit vim-$VIM_VERSION.tar.bz2 ftp://ftp.vim.org/pub/vim/unix
 }
 
