@@ -187,6 +187,11 @@ Setup () {
     die "Couldn't find a package manager"
   fi
 
+  if ! findpkg mercurial; then
+    info "installing mercurial"
+    installpkg mercurial
+  fi
+
   if ! findpkg build-essential; then
     info "installing build-essential"
     installpkg cc build-essential
