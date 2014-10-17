@@ -5,7 +5,10 @@ To install, just run
 
     ./install.sh
 
-orrrr if you have everything built and you think everything is good.
+This will download the freshest vim and install it strictly in your $HOME/bin directory. Your distribution's vim won't be touched at all. This is a 
+non-clobbering pollution free method
+
+orr if you have everything built and you think everything is good.
 
     ./easyinstall.sh
 
@@ -17,7 +20,6 @@ Screenshots ... everyone loves screen shots
 
 ### some notes
 
-I've been using vim since about 1997. I don't use [pathogen](https://github.com/tpope/vim-pathogen). I also don't use [EasyMotion](http://www.vim.org/scripts/script.php?script_id=3526) or [Sparkup](https://github.com/rstacruz/sparkup) or [Git Gutter](https://github.com/airblade/vim-gitgutter) or anything by [tpope](https://github.com/tpope). Not that I have anything against these things, I just don't use them.
-
-So if you are looking for some souped-up tricked-out rice-rocket of a vim, you should go elsewhere.
+I've been using vim since about 1997. This is my personal configuration and is really only supported on debian systems because that's what I tend to come
+in contact with. If you'd like to use it, then great.  Have fun.
 
