@@ -104,6 +104,8 @@ buildit () {
     --mandir=/tmp\
     $configOpts
 
+  ln /usr/bin/vin $BINDIR/vim-dist
+
   make $CPUS
   replaceit $2
   make install

@@ -1,13 +1,16 @@
 This is my custom script to build vim on some random box that I need
 to develop from.  It's constantly changing on an as-needed basis.
 
+## Install from source
 To install, just run
 
     ./install.sh
 
-This will download the freshest vim and install it strictly in your $HOME/bin directory. Your distribution's vim won't be touched at all. This is a 
-non-clobbering pollution free method
+This will download the freshest vim and install it strictly in your `$HOME/bin` directory. Your distribution's vim won't be touched at all. This is a 
+non-clobbering pollution free method.  If you want to get to your distributions vim, there's a symlink set up in your `$HOME/bin/` directory to `vim-dist` which
+should track back to /usr/bin
 
+## Install just the dot files
 orr if you have everything built and you think everything is good.
 
     ./easyinstall.sh
