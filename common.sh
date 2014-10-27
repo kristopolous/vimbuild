@@ -243,22 +243,20 @@ Download () {
 }
 
 Build () {
-  (
-    cd $STARTDIR
+  cd $STARTDIR
 
-    if ( ! silentfind ctags ); then
-      downloadit ctags-$CTAGS_VERSION.tar.gz
-      buildit ctags-$CTAGS_VERSION ctags
-    fi
+#  if ( ! silentfind ctags ); then
+#    downloadit ctags-$CTAGS_VERSION.tar.gz
+#    buildit ctags-$CTAGS_VERSION ctags
+#  fi
+#
+#  if ( ! silentfind cscope ); then
+#    downloadit cscope-$CSCOPE_VERSION.tar.gz
+#    buildit cscope-$CSCOPE_VERSION cscope
+#  fi
 
-    if ( ! silentfind cscope ); then
-      downloadit cscope-$CSCOPE_VERSION.tar.gz
-      buildit cscope-$CSCOPE_VERSION cscope
-    fi
-
-    configOpts="--enable-pythoninterp --enable-rubyinterp --with-x --enable-cscope"
-    buildit vim vim
-  )
+  configOpts="--enable-pythoninterp --enable-rubyinterp --with-x --enable-cscope"
+  buildit vim vim
 }
 
 Install () {
