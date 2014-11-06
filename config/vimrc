@@ -194,10 +194,14 @@ inoremap <Tab> <C-R>=Mosh_Tab_Or_Complete()<CR>
 map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
 " Pan through tabs with F11 and F12
-nnoremap <F12> :tabn<cr>
-nnoremap <F11> :tabp<cr>
-nnoremap <M-F12> :tabn<cr>
-nnoremap <M-F11> :tabp<cr>
+map <F12> :tabn<cr>
+map <F11> :tabp<cr>
+map <M-F12> :tabn<cr>
+map <M-F11> :tabp<cr>
+imap <F12> <ESC>:tabn<cr>
+imap <F11> <ESC>:tabp<cr>
+imap <M-F12> <ESC>:tabn<cr>
+imap <M-F11> <ESC>:tabp<cr>
 
 " Short-wire writing and closing of buffers
 nnoremap q :q<cr>
