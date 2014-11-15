@@ -73,7 +73,11 @@ set cscopetag
 set cscopeverbose  
 
 " Try to be aggressively 2 spaces.
-set smartindent
+" From
+" http://stackoverflow.com/questions/3938596/vim-autoindent-not-working/4191625#4191625
+" set smartindent
+:filetype indent on
+
 set tabstop=2
 set shiftwidth=2
 set expandtab
