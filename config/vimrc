@@ -344,4 +344,6 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " see http://i.imgur.com/ze2uZQG.png
-set breakindent
+if v:version > 703
+  set breakindent
+endif
