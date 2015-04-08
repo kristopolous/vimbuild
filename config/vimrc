@@ -2,9 +2,11 @@ function FoldBrace()
 	if getline(v:lnum+1)[0] == '{'
 		return '>1'
 	endif
+
 	if getline(v:lnum)[0] == '}'
 		return '<1'
 	endif
+
 	return foldlevel(v:lnum-1)
 endfunction
 
@@ -39,35 +41,35 @@ set tags+=~/.vim/systags;../;../../;../../../;
 " if you want the reverse search order.
 set csto=1
 
-" add any cscope database in current directory
-if filereadable("cscope.out")
-  cs add cscope.out  
-  " else add the database pointed to by environment variable 
-elseif filereadable("../cscope.out")
-  cs add ../cscope.out  
-elseif filereadable("../../cscope.out")
-  cs add ../../cscope.out  
-elseif filereadable("../../../cscope.out")
-  cs add ../../../cscope.out  
-elseif filereadable("../../../../cscope.out")
-  cs add ../../../../cscope.out  
-elseif filereadable("../../../../../cscope.out")
-  cs add ../../../../../cscope.out  
-elseif filereadable("../../../../../../cscope.out")
-  cs add ../../../../../../cscope.out  
-elseif filereadable("../../../../../../../cscope.out")
-  cs add ../../../../../../../cscope.out  
-elseif filereadable("../../../../../../../../cscope.out")
-  cs add ../../../../../../../../cscope.out
-elseif filereadable("../../../../../../../../../cscope.out")
-  cs add ../../../../../../../../../cscope.out  
-elseif filereadable("../../../../../../../../../../cscope.out")
-  cs add ../../../../../../../../../../cscope.out  
-elseif $CSCOPE_DB != ""
-  cs add $CSCOPE_DB
-endif
-
 if executable('cscope')
+  " add any cscope database in current directory
+  if filereadable("cscope.out")
+    cs add cscope.out  
+    " else add the database pointed to by environment variable 
+  elseif filereadable("../cscope.out")
+    cs add ../cscope.out  
+  elseif filereadable("../../cscope.out")
+    cs add ../../cscope.out  
+  elseif filereadable("../../../cscope.out")
+    cs add ../../../cscope.out  
+  elseif filereadable("../../../../cscope.out")
+    cs add ../../../../cscope.out  
+  elseif filereadable("../../../../../cscope.out")
+    cs add ../../../../../cscope.out  
+  elseif filereadable("../../../../../../cscope.out")
+    cs add ../../../../../../cscope.out  
+  elseif filereadable("../../../../../../../cscope.out")
+    cs add ../../../../../../../cscope.out  
+  elseif filereadable("../../../../../../../../cscope.out")
+    cs add ../../../../../../../../cscope.out
+  elseif filereadable("../../../../../../../../../cscope.out")
+    cs add ../../../../../../../../../cscope.out  
+  elseif filereadable("../../../../../../../../../../cscope.out")
+    cs add ../../../../../../../../../../cscope.out  
+  elseif $CSCOPE_DB != ""
+    cs add $CSCOPE_DB
+  endif
+
 
   " Use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
   set cscopetag
