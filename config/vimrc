@@ -67,10 +67,15 @@ elseif $CSCOPE_DB != ""
   cs add $CSCOPE_DB
 endif
 
-" Use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
-set cscopetag
-" Show msg when any other cscope db added
-set cscopeverbose  
+if executable('cscope')
+
+  " Use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+  set cscopetag
+
+  " Show msg when any other cscope db added
+  set cscopeverbose  
+
+endif
 
 " Try to be aggressively 2 spaces.
 " From
@@ -82,8 +87,9 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set foldexpr=FoldBrace()
-set foldmethod=expr
-" For remote editing... actually i never do that any more
+
+"set foldmethod=expr
+" set foldmethod=indent
 set cmdheight=1
 
 " No screen flash, no beep, no nothing.
@@ -344,6 +350,4 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " see http://i.imgur.com/ze2uZQG.png
-if v:version > 703
-  set breakindent
-endif
+set breakindent
