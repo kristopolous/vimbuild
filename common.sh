@@ -66,7 +66,9 @@ _hg() {
 }
 
 _sudo () {
-  if ( gotpermission "$*" ); then
+  if [ `whoami` = 'root' ]; then
+    $*
+  elif ( gotpermission "$*" ); then
     sudo $*
   fi
 }
