@@ -9,14 +9,17 @@
 #
 #  You can find the latest here: https://github.com/kristopolous/vimbuild
 #
+set -e
 log=/dev/stderr
-VIM_VERSION=7.4
+VIM_VERSION=7.4.768
+VIM_DIREXPAND=74
 CSCOPE_VERSION=15.8a
 CTAGS_VERSION=5.8
 BINDIR=~/bin
 LIBDIR=~/lib
 STARTDIR=`pwd`/temp
 DOWNLOADDIR=$STARTDIR/_distfiles_
+HAS_FAILED=0
 
 # avoid the builtin shell which
 WHICH=/usr/bin/which
@@ -106,7 +109,7 @@ buildit () {
     --mandir=/tmp\
     $configOpts
 
-  ln /usr/bin/vin $BINDIR/vim-dist
+  ln /usr/bin/vim $BINDIR/vim-dist
 
   make $CPUS
   replaceit $2
@@ -217,7 +220,7 @@ Setup () {
     die "Couldn't find a package manager"
   fi
 
-  InstallIfNeeded mercurial libncurses5-dev build-essential
+  InstallIfNeeded libncurses5-dev build-essential #mercurial
 }
 
 Clean () {
@@ -234,6 +237,9 @@ Clean () {
 
 Download () {
   cd $STARTDIR
+  downloadit vim-$VIM_VERSION.tar.bz2 #ftp://ftp.vim.org/pub/vim/unix
+  return 0
+
   if [ -e vim ]; then
     cd vim
     _hg pull
@@ -241,7 +247,6 @@ Download () {
   else
     _hg clone https://vim.googlecode.com/hg/ vim
   fi
-  # downloadit vim-$VIM_VERSION.tar.bz2 ftp://ftp.vim.org/pub/vim/unix
 }
 
 Build () {
@@ -258,7 +263,7 @@ Build () {
 #  fi
 
   configOpts="--enable-pythoninterp --enable-rubyinterp --with-x --enable-cscope"
-  buildit vim vim
+  buildit vim74 vim
 }
 
 Install () {
