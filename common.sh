@@ -219,7 +219,7 @@ Setup () {
     die "Couldn't find a package manager"
   fi
 
-  InstallIfNeeded libncurses5-dev build-essential #mercurial
+  InstallIfNeeded exuberant-ctags libncurses5-dev build-essential #mercurial
 }
 
 Clean () {
