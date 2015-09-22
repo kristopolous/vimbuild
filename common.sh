@@ -171,7 +171,7 @@ findpkg () {
 
 installpkg() {
   package=$1
-  $PKGMANAGER install $package > /dev/null 
+  $PKGMANAGER install -y $package > /dev/null 
 
   if [ $? -ne 0 ]; then
     die "Can't install $package"
@@ -210,10 +210,10 @@ Setup () {
   fi
 
   if silentfind apt-get; then
-    PKGMANAGER="_sudo apt-get -y"
+    PKGMANAGER="sudo apt-get -y"
     PKGSEARCH="dpkg-query -W"
   elif silentfind yum; then
-    PKGMANAGER="_sudo yum"
+    PKGMANAGER="sudo yum"
     PKGSEARCH="yum search"
   else
     die "Couldn't find a package manager"
