@@ -9,7 +9,6 @@
 #
 #  You can find the latest here: https://github.com/kristopolous/vimbuild
 #
-set -e
 log=/dev/stderr
 VIM_VERSION=7.4.768
 VIM_DIREXPAND=74
