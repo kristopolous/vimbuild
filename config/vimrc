@@ -15,12 +15,12 @@ function AckExpand(term)
 endfunction
 
 " Try to get sensible omni complete that shows up when you want it to.
-function! Mosh_Tab_Or_Complete()
-	if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[:.\>]'
-		return "\<C-X>\<C-O>"
-	else
-		return "\<Tab>"
-endfunction
+"function! Mosh_Tab_Or_Complete()
+"	if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[:.\>]'
+"		return "\<C-X>\<C-O>"
+"	else
+"		return "\<Tab>"
+"endfunction
 
 " This must be first, because it changes other options as a side effect.
 set nocompatible
@@ -202,7 +202,7 @@ nmap <C-@><C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <C-@><C-@>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>	
 nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
 
-inoremap <Tab> <C-R>=Mosh_Tab_Or_Complete()<CR>
+"inoremap <Tab> <C-R>=Mosh_Tab_Or_Complete()<CR>
 map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
 " Pan through tabs with F11 and F12
@@ -314,7 +314,7 @@ augroup END
 
 colorscheme kristopolous
 
-au FileType ruby,eruby set omnifunc=rubycomplete#Complete
+"au FileType ruby,eruby set omnifunc=rubycomplete#Complete
 au FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 let g:closetag_html_style=1 
