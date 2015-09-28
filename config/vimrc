@@ -268,7 +268,7 @@ map <F2> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 nnoremap <silent> <F8> :NERDTreeToggle<CR><C-w>h<C-w><C-w>h<C-w>h
-nnoremap <silent> <F7> :TlistToggle<CR><C-w>h<C-w><C-w>h<C-w>h
+nnoremap <silent> <F7> :TagbarToggle<CR><C-w>h<C-w><C-w>h<C-w>h
 
 map <RightMouse> :set scrolloff=20<cr>
 map <RightDrag> <LeftMouse>
