@@ -25,7 +25,7 @@ endfunction
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 set showmatch
-set nu
+set nonu
 set nocp
 
 " From http://www.reddit.com/r/vim/comments/2as7uu/how_to_remove_all_vim_swap_files_from_a_project/ciyahw0N
