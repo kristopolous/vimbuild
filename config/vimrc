@@ -207,10 +207,10 @@ nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
 map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
 " Pan through tabs with F11 and F12
-map! <F12> <ESC>:tabn<cr>
-map! <F11> <ESC>:tabp<cr>
-map! <M-F12> <ESC>:tabn<cr>
-map! <M-F11> <ESC>:tabp<cr>
+nmap <F12> <ESC>:tabn<cr>
+nmap <F11> <ESC>:tabp<cr>
+imap <M-F12> <ESC>:tabn<cr>
+imap <M-F11> <ESC>:tabp<cr>
 
 " Short-wire writing and closing of buffers
 nnoremap q :q<cr>
