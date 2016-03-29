@@ -34,7 +34,7 @@ set backup		" keep a backup file
 set backupdir=/tmp/
 set directory=/tmp/
 
-filetype plugin on
+filetype plugin indent on
 
 set tags+=~/.vim/systags;../;../../;../../../;
 
@@ -84,15 +84,10 @@ endif
 " From
 " http://stackoverflow.com/questions/3938596/vim-autoindent-not-working/4191625#4191625
 " set smartindent
-:filetype indent on
-
 set tabstop=2
 set shiftwidth=2
 set expandtab
 set foldexpr=FoldBrace()
-
-"set foldmethod=expr
-" set foldmethod=indent
 set cmdheight=1
 
 " No screen flash, no beep, no nothing.
@@ -100,7 +95,7 @@ set visualbell t_vb=
 
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-set history=150		" keep 50 lines of command line history
+set history=250		
 set ruler		    " show the cursor position all the time
 set showcmd		  " display incomplete commands
 set incsearch		" do incremental searching
@@ -115,8 +110,8 @@ set mouse=n
 set scrolloff=2
 set scrolljump=1
 set t_Co=256
-syntax on
 set hlsearch
+syntax on
 
 " For remote editing (ssh://..) set a default view
 let g:netrw_browse_split=3
@@ -285,9 +280,6 @@ map <S-End> <C-H><C-H>
 " Auto comment for asterisks
 set formatoptions+=r
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
 " This is an alternative that also works in block mode, but the deleted
 " text is lost and it only works for putting the current register.
 "vnoremap p "_dp
@@ -333,7 +325,6 @@ set linebreak
 set nolist  " list disables linebreak
 
 set exrc            " enable per-directory .vimrc files
-set secure          " disable unsafe commands in local .vimrc files
 
 set wildmenu
 set wildmode=list:longest,full
