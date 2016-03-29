@@ -314,9 +314,21 @@ au Filetype html,xml,xsl source ~/.vim/autoload/closetag.vim
 " documents' split-screen. I end up with a fullscreen NERDTree. I would like
 " NERDTree to close too, on closing the last tab or buffers. 
 "
-" http://stackoverflow.com/questions/5581697/close-vim-nerdtree-on-close-of-file
+" https://github.com/scrooloose/nerdtree/issues/21
 "
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+
+" Close all open buffers on entering a window if the only
+" buffer that's left is the NERDTree buffer
+function! s:CloseIfOnlyNerdTreeLeft()
+  if exists("t:NERDTreeBufName")
+    if bufwinnr(t:NERDTreeBufName) != -1
+      if winnr("$") == 1
+        q
+      endif
+    endif
+  endif
+endfunction
 
 " When editing a text file, if you want word wrapping, but only want line breaks inserted when you explicitly press the Enter key: (http://vim.wikia.com/wiki/Word_wrap_without_line_breaks)
 
