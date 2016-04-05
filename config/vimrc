@@ -244,6 +244,7 @@ imap <C-b> <ESC>:tabnew <C-d>
 
 nmap <C-J> :cn <cr>
 imap <C-J> <ESC>:cn <cr>
+nmap <C-L> :syntax sync fromstart<cr>:redraw!<cr>
 
 nmap <C-K> :cp <cr>
 imap <C-K> <ESC>:cp <cr>
