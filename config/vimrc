@@ -12,7 +12,7 @@ function FoldBrace()
 endfunction
 
 function AckExpand(term)
-  execute 'Ack' expand('<cword>')
+  execute 'Ack' a:term
 endfunction
 
 " Try to get sensible omni complete that shows up when you want it to.
@@ -354,3 +354,7 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " see http://i.imgur.com/ze2uZQG.png
 set breakindent
+
+" Add a hyphen as a keyword symbol (see
+" http://vi.stackexchange.com/questions/4009/include-symbols-in-cword)
+set iskeyword+=-
