@@ -27,8 +27,7 @@ set directory=/tmp/
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'chemzqm/vim-jsx-improve'
-
+filetype indent on
 filetype plugin indent on
 
 set tags+=~/.vim/systags;../;../../;../../../;
@@ -78,7 +77,6 @@ endif
 " Try to be aggressively 2 spaces.
 " From
 " http://stackoverflow.com/questions/3938596/vim-autoindent-not-working/4191625#4191625
-set smartindent
 set number
 set tabstop=2
 set shiftwidth=2
@@ -360,3 +358,4 @@ autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
 au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 map <F1> <Esc>
 imap <F1> <Esc>
+Plugin 'chemzqm/vim-jsx-improve'
